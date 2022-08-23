@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:studying_timer/common/common.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.only(left: 25.w),
                 child: Text(
                   "계정",
-                  style: TextStyle(fontSize: 15.sp, color: Colors.orange),
+                  style: TextStyle(fontSize: 15.sp, color: CommonColor.orange),
                 ),
               ),
               Padding(
@@ -96,10 +97,12 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: EdgeInsets.only(top: 30.h, left: 28.w, right: 28.w),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
-                    primary: Colors.orange,
+                    primary: CommonColor.orange,
                     minimumSize: Size(double.infinity, 40.h),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.h)),
