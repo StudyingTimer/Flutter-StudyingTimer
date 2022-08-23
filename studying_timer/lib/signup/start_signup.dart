@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:studying_timer/common/common.dart';
+import 'package:studying_timer/signup/email.dart';
 import 'package:studying_timer/signup/login.dart';
 
 // ignore: camel_case_types
@@ -64,7 +66,7 @@ class _Start_signupState extends State<Start_signup> {
                           "가입하기",
                           style: TextStyle(
                               fontSize: 25.sp,
-                              color: Colors.orange,
+                              color: CommonColor.orange,
                               fontWeight: FontWeight.w600),
                         ),
                       ]),
@@ -77,7 +79,10 @@ class _Start_signupState extends State<Start_signup> {
             Padding(
               padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Email()));
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: Colors.white,
@@ -115,7 +120,10 @@ class _Start_signupState extends State<Start_signup> {
             Padding(
               padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Email()));
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: Colors.white,
@@ -152,7 +160,10 @@ class _Start_signupState extends State<Start_signup> {
             Padding(
               padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Email()));
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: Colors.white,
@@ -190,7 +201,10 @@ class _Start_signupState extends State<Start_signup> {
             Padding(
               padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Email()));
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: Colors.white,
@@ -225,7 +239,10 @@ class _Start_signupState extends State<Start_signup> {
             Padding(
               padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Email()));
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: Colors.white,
@@ -263,7 +280,10 @@ class _Start_signupState extends State<Start_signup> {
             Padding(
               padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Email()));
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: Colors.white,
@@ -320,7 +340,7 @@ class _Start_signupState extends State<Start_signup> {
                       "로그인",
                       style: TextStyle(
                           fontSize: 13.sp,
-                          color: Colors.orange,
+                          color: CommonColor.orange,
                           fontWeight: FontWeight.w600),
                     )),
               ],
