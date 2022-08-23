@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:studying_timer/common/common.dart';
+import 'package:studying_timer/signup/login.dart';
 import 'package:studying_timer/signup/start_signup.dart';
 
 void main() {
@@ -36,7 +38,7 @@ class Start extends StatelessWidget {
             Icon(
               Icons.play_arrow_outlined,
               size: 120.h,
-              color: Colors.orange,
+              color: CommonColor.orange,
             ),
             SizedBox(
               height: 30.h,
@@ -63,14 +65,14 @@ class Start extends StatelessWidget {
                   "새로 시작하기",
                   style: TextStyle(
                       fontSize: 15.sp,
-                      color: Colors.orange,
+                      color: CommonColor.orange,
                       fontWeight: FontWeight.w600),
                 ),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   minimumSize: Size(double.infinity, 45.h),
                   shape: RoundedRectangleBorder(
-                      side: const BorderSide(width: 1.0, color: Colors.orange),
+                      side: BorderSide(width: 1.0, color: CommonColor.orange),
                       borderRadius: BorderRadius.circular(20.h)),
                 ),
               ),
@@ -78,20 +80,23 @@ class Start extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Login()));
+                },
                 // ignore: sort_child_properties_last
                 child: Text(
                   "로그인",
                   style: TextStyle(
                       fontSize: 15.sp,
-                      color: Colors.orange,
+                      color: CommonColor.orange,
                       fontWeight: FontWeight.w600),
                 ),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   minimumSize: Size(double.infinity, 45.h),
                   shape: RoundedRectangleBorder(
-                      side: const BorderSide(width: 1.0, color: Colors.orange),
+                      side: BorderSide(width: 1.0, color: CommonColor.orange),
                       borderRadius: BorderRadius.circular(20.h)),
                 ),
               ),
