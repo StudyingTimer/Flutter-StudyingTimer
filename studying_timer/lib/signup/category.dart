@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,6 +34,22 @@ class _CategoryState extends State<Category> {
                     color: Colors.white,
                   )))
         ],
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 20.h),
+              child: Text(
+                "학년 선택",
+                style: TextStyle(
+                  color: Colors.black.withOpacity(0.6),
+                  fontSize: 14.sp,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
