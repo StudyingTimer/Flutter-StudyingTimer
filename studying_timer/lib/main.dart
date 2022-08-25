@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:studying_timer/common/common.dart';
-import 'package:studying_timer/signup/login.dart';
-import 'package:studying_timer/signup/start_signup.dart';
+import 'package:studying_timer/screens/signup/login.dart';
+import 'package:studying_timer/screens/signup/start_signup.dart';
 
 void main() {
   runApp(const MyApp());
