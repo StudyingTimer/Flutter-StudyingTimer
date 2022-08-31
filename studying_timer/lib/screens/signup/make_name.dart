@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:studying_timer/screens/signup/category.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Make_Name extends StatefulWidget {
   const Make_Name({Key? key}) : super(key: key);
@@ -13,6 +14,19 @@ class Make_Name extends StatefulWidget {
 class _Make_NameState extends State<Make_Name> {
   final int maxLength = 11;
   String textValue = "";
+  final myController = TextEditingController();
+
+  void toastmessage() {
+    Fluttertoast.showToast(
+        msg: "닉네임을 입력해주세요",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -57,6 +71,7 @@ class _Make_NameState extends State<Make_Name> {
                   height: 6.h,
                 ),
                 TextField(
+                  controller: myController,
                   autofocus: true,
                   style: TextStyle(fontSize: 19.sp, color: Colors.white),
                   textAlign: TextAlign.center,
@@ -88,8 +103,14 @@ class _Make_NameState extends State<Make_Name> {
                       EdgeInsets.only(left: 115.w, right: 115.w, top: 35.w),
                   child: ElevatedButton(
                     onPressed: () {
-                       Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Category()));
+                      if (myController.text == "") {
+                        toastmessage();
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Category()));
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.white,
