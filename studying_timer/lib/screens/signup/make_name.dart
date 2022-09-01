@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:studying_timer/screens/signup/category.dart';
+import 'package:studying_timer/screens/bottombar/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Make_Name extends StatefulWidget {
@@ -109,7 +109,7 @@ class _Make_NameState extends State<Make_Name> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Category()));
+                                builder: (context) => const Home()));
                       }
                     },
                     style: ElevatedButton.styleFrom(
