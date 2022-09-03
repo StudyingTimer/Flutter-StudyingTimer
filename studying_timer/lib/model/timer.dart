@@ -1,10 +1,10 @@
-class Timer {
+class TimerModel {
   final String subject;
-  int hour = 0;
-  int minute = 0;
-  int second = 0;
+  int hour = 00;
+  int minute = 00;
+  int second = 00;
   bool ispressed = false;
-  Timer(this.subject);
+  TimerModel(this.subject);
 }
 
 // timer 페이지 구현
