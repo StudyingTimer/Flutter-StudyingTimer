@@ -5,6 +5,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:studying_timer/model/timer.dart';
+import 'package:studying_timer/widget/timerList.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final List<TimerModel> timerList = <TimerModel>[];
   NumberFormat formatter = NumberFormat("00");
   int hour = 00;
   int minutes = 00;
@@ -30,6 +33,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    timerList.add(TimerModel("국어"));
+    timerList.add(TimerModel("수학"));
+    timerList.add(TimerModel("영어"));
   }
 
   @override
@@ -114,72 +120,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 100.h,
-              child: Padding(
-                padding: EdgeInsets.only(),
-                child: ListTile(
-                    leading: ElevatedButton(
-                      onPressed: () {},
-                      child: Icon(Icons.play_arrow),
-                      style:
-                          ElevatedButton.styleFrom(shape: const CircleBorder()),
-                    ),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "국어",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              formatter.format(hour),
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              ":",
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              formatter.format(minutes),
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              ":",
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              formatter.format(second),
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
-                        ),
-                      ],
-                    )),
-              ),
-            )
+            TimerList(timerList: timerList)
           ],
         ),
       ),
