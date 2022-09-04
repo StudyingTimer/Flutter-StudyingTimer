@@ -12,6 +12,7 @@ class TimerList extends StatefulWidget {
   State<TimerList> createState() => _RankState();
 }
 
+
 class _RankState extends State<TimerList> {
   List<Widget> makeStudyPaper(BuildContext context, List<TimerModel> timers) {
     List<Widget> results = [];
