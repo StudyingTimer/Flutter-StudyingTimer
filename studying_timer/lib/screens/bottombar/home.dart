@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
@@ -63,9 +63,12 @@ class _HomeState extends State<Home> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "D-day",
-                style: TextStyle(fontSize: 20.sp, color: Colors.white),
+              Padding(
+                padding: EdgeInsets.only(right: 14.w),
+                child: Text(
+                  "D-day",
+                  style: TextStyle(fontSize: 17.sp, color: Colors.white),
+                ),
               ),
             ],
           )
@@ -74,53 +77,65 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              height: 110.h,
-              color: CommonColor.orange,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    formatter.format(hour),
-                    style: TextStyle(
-                        fontSize: 35.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    ":",
-                    style: TextStyle(
-                        fontSize: 35.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    formatter.format(minutes),
-                    style: TextStyle(
-                        fontSize: 35.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    ":",
-                    style: TextStyle(
-                        fontSize: 35.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    formatter.format(second),
-                    style: TextStyle(
-                        fontSize: 35.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: double.infinity,
+                color: CommonColor.orange,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      formatter.format(hour),
+                      style: TextStyle(
+                          fontSize: 35.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      ":",
+                      style: TextStyle(
+                          fontSize: 35.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      formatter.format(minutes),
+                      style: TextStyle(
+                          fontSize: 35.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      ":",
+                      style: TextStyle(
+                          fontSize: 35.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      formatter.format(second),
+                      style: TextStyle(
+                          fontSize: 35.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
               ),
             ),
-            TimerList(timerList: timerList)
+            Expanded(
+              flex: 4,
+              child: Container(
+                width: 100.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.r),
+                        topRight: Radius.circular(10.r))),
+              ),
+            )
+            // TimerList(timerList: timerList)
           ],
         ),
       ),
