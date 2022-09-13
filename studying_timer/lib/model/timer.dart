@@ -3,7 +3,6 @@ class TimerModel {
   int hour = 00;
   int minute = 00;
   int second = 00;
-  bool ispressed = false;
   TimerModel(this.subject);
 }
 
@@ -16,3 +15,7 @@ class TimerModel {
 // 5. 그렇게 들어온 list를 화면에 보여주기
 // 6. 버튼을 누르면 icon 변경, 다른버튼 누르려고 하면 경고 toast message 띄우기
 // 7. listIcon -> delete를 누를시 list에서 제외하고 새로고침
+
+
+// icon을 onpressed했을때 list.hour, list.minute, list.second, Timerlist, i를 매개변수로 넘겨서 (TimerListView -> ING) 
+// timer(list.hour, list.minute, list.second 값 변경)를 굴리고 home으로 list.hour, list.minute, list.second를 매개변수로 넘겨 위의 time을 변경(ING -> home)
