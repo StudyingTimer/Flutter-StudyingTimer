@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -22,11 +19,11 @@ class _HomeState extends State<Home> {
   int minutes = 00;
   int second = 00;
   final bool _iconpress = false;
-  late Timer timer = timer;
+  // late Timer timer = timer;
 
   @override
   void dispose() {
-    timer.cancel();
+    // timer.cancel();
     super.dispose();
   }
 
@@ -41,6 +38,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: CommonColor.orange,
       appBar: AppBar(
         centerTitle: true,
@@ -126,104 +124,15 @@ class _HomeState extends State<Home> {
               ),
             ),
             Expanded(
-              flex: 10,
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10.r),
-                          topRight: Radius.circular(10.r))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 90.h,
+                flex: 10,
+                child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
                         color: Colors.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  // timers[i].ispressed = !timers[i].ispressed;
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  shape: const CircleBorder(),
-                                  minimumSize: const Size(40, 40),
-                                  primary: Color(
-                                      // selectBtnColor()
-                                      0xff000000)),
-                              child: Icon(Icons.pause
-                                  // timers[i].ispressed ?  Icons.pause : Icons.play_arrow
-                                  ),
-                            ),
-                            Text(
-                              //timers[i].subject,
-                              "과목",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  //formatter.format(
-                                  //timers[i].hour
-                                  //),
-                                  "00",
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  ":",
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  "00",
-                                  //formatter.format(timers[i].minute),
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  ":",
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  "00",
-                                  //formatter.format(timers[i].second),
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Icon(Icons.more_vert)
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-            )
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.r),
+                            topRight: Radius.circular(10.r))),
+                    child: TimerList(timerList: timerList)))
           ],
         ),
       ),
