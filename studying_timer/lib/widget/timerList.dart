@@ -3,6 +3,7 @@ import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:studying_timer/screens/onpressbottom/ing.dart';
 
 class TimerList extends StatefulWidget {
   final List<TimerModel> timerList;
@@ -11,7 +12,6 @@ class TimerList extends StatefulWidget {
   @override
   State<TimerList> createState() => _RankState();
 }
-
 
 class _RankState extends State<TimerList> {
   List<Widget> makeStudyPaper(BuildContext context, List<TimerModel> timers) {
@@ -32,84 +32,100 @@ class _RankState extends State<TimerList> {
         return buttonColor;
       }
 
-      results.add(SizedBox(
-        height: 100.h,
+      results.add(Container(
+        width: double.infinity,
+        height: 75.h,
+        color: Colors.white,
+        margin: EdgeInsets.only(top: 10.h),
         child: Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          padding: EdgeInsets.only(
+            left: 15.w,
+            right: 15.w,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ListTile(
-                  trailing: const Icon(Icons.more_vert),
-                  tileColor: Colors.white,
-                  leading: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        timers[i].ispressed = !timers[i].ispressed;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      
-                        shape: const CircleBorder(),
-                        minimumSize: const Size(40, 40),
-                        primary: Color(selectBtnColor())
-                        ),
-                    child: Icon(
-                        timers[i].ispressed ?  Icons.pause : Icons.play_arrow ),
+              Padding(
+                padding: EdgeInsets.only(top: 2.h),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Ing(
+                                hour: timers[i].hour,
+                                minute: timers[i].minute,
+                                second: timers[i].second,
+                                i: i,
+                                timerList: timers)));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0.0,
+                      shape: const CircleBorder(),
+                      minimumSize: Size(35.w, 35.h),
+                      primary: Color(selectBtnColor())),
+                  child: const Icon(Icons.play_arrow),
+                ),
+              ),
+              Text(
+                timers[i].subject,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                width: 110.w,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    formatter.format(timers[i].hour),
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
                   ),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        timers[i].subject,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            formatter.format(timers[i].hour),
-                            style: TextStyle(
-                                fontSize: 20.sp,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            ":",
-                            style: TextStyle(
-                                fontSize: 20.sp,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            formatter.format(timers[i].minute),
-                            style: TextStyle(
-                                fontSize: 20.sp,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            ":",
-                            style: TextStyle(
-                                fontSize: 20.sp,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            formatter.format(timers[i].second),
-                            style: TextStyle(
-                                fontSize: 20.sp,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
+                  Text(
+                    ":",
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    formatter.format(timers[i].minute),
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    ":",
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    formatter.format(timers[i].second),
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Icon(
+                    Icons.more_vert,
+                    size: 19.h,
+                    color: Colors.grey,
+                  )
+                ],
+              ),
             ],
           ),
         ),
