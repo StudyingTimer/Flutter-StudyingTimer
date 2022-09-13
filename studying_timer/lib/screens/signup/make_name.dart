@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:studying_timer/screens/bottombar/bottom.dart';
 import 'package:studying_timer/screens/bottombar/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -109,7 +110,7 @@ class _Make_NameState extends State<Make_Name> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Home()));
+                                builder: (context) => const MyPage()));
                       }
                     },
                     style: ElevatedButton.styleFrom(
