@@ -3,9 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
-import 'package:studying_timer/screens/bottombar/bottom.dart';
-import 'package:studying_timer/screens/bottombar/home.dart';
-import 'package:sqflite/sqflite.dart';
+// import 'package:sqflite/sqflite.dart';
+// import 'package:path/path.dart';
 
 class Ing extends StatefulWidget {
   final int hour, minute, second, i;
