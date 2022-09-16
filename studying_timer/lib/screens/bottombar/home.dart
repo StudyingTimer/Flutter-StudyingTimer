@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'package:studying_timer/widget/timerList.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,6 +22,10 @@ class _HomeState extends State<Home> {
   int second = 00;
   final bool _iconpress = false;
   bool addpressed = false;
+
+  int position1 = 120;
+  int position2 = 60;
+
   @override
   void dispose() {
     // timer.cancel();
@@ -38,11 +43,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
-      ),
       Scaffold(
         backgroundColor: CommonColor.orange,
         appBar: AppBar(
@@ -137,61 +137,79 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10.r),
                               topRight: Radius.circular(10.r))),
-                      child: Column(
-                        children: [
-                          TimerList(timerList: timerList),
-                          Padding(
-                            padding: EdgeInsets.only(right: 13.w, top: 180.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        addpressed = !addpressed;
-                                      });
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: const CircleBorder(),
-                                      elevation: 6.0,
-                                      minimumSize: Size(50.w, 50.h),
-                                      primary: Colors.white,
-                                    ),
-                                    child: Icon(
-                                      addpressed ? Icons.close : Icons.add,
-                                      color: CommonColor.orange,
-                                      size: 25.h,
-                                    )),
-                                ElevatedButton(
+                      child: Column(children: [
+                        TimerList(timerList: timerList),
+
+                        //휴식 알림 -> padding.top = 120
+                        //타이머 추가 -> padding.top = 60
+                        Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: position1.h, left: 270.w),
+                              child: AnimatedScale(
+                                duration: const Duration(microseconds: 60000),
+                                scale: addpressed ? 1 : 0,
+                                child: ElevatedButton(
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.white,
-                                        elevation: 0.0,
-                                        
-                                        minimumSize: Size(50.w, 50.h)),
+                                        minimumSize: Size(55.w, 50.h)),
                                     child: const Icon(
                                       Icons.access_alarm_outlined,
                                       color: Colors.black,
                                     )),
-                                    ElevatedButton(
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: position2.h, left: 270.w),
+                              child: AnimatedScale(
+                                duration: const Duration(microseconds: 110000),
+                                scale: addpressed ? 1 : 0,
+                                child: ElevatedButton(
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
                                         primary: CommonColor.orange,
-                                        elevation: 0.0,
-                                        
-                                        minimumSize: Size(50.w, 50.h)),
-                                    child: const Icon(
-                                      Icons.access_alarm_outlined,
-                                      color: Colors.black,
-                                    ))
-                              ],
+                                        minimumSize: Size(55.w, 50.h)),
+                                    child: Icon(
+                                      FontAwesomeIcons.bookOpen,
+                                      color: Colors.white,
+                                      size: 20.h,
+                                    )),
+                              ),
                             ),
-                          )
-                        ],
-                      )))
+                            Padding(
+                              padding: EdgeInsets.only(top: 180.h, left: 270.w),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      addpressed = !addpressed;
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    elevation: 6.0,
+                                    minimumSize: Size(55.w, 55.h),
+                                    primary: Colors.white,
+                                  ),
+                                  child: Icon(
+                                    addpressed ? Icons.close : Icons.add,
+                                    color: CommonColor.orange,
+                                    size: 25.h,
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ])))
             ],
           ),
         ),
+      ),
+      Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
       ),
     ]);
   }
