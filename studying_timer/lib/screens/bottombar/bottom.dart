@@ -17,9 +17,9 @@ class _MyPageState extends State<MyPage> {
   var _currentIndex = 0;
   final List<Widget> _children = [
     const Home(),
+    const Todo(),
     const Rank(),
-    const Status(),
-    const Todo()
+    const Status()
   ];
   @override
   Widget build(BuildContext context) {
