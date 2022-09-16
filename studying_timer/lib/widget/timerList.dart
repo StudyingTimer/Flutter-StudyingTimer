@@ -15,6 +15,8 @@ class TimerList extends StatefulWidget {
 
 class _RankState extends State<TimerList> {
   List<Widget> makeStudyPaper(BuildContext context, List<TimerModel> timers) {
+    List<String> _valueList = ['이름 수정', '삭제'];
+    late String _selectedValue = '';
     List<Widget> results = [];
     NumberFormat formatter = NumberFormat("00");
 
@@ -116,14 +118,27 @@ class _RankState extends State<TimerList> {
                         color: Colors.black,
                         fontWeight: FontWeight.w400),
                   ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Icon(
-                    Icons.more_vert,
-                    size: 19.h,
-                    color: Colors.grey,
-                  )
+                  PopupMenuButton(
+                      // add icon, by default "3 dot" icon
+                      // icon: Icon(Icons.book)
+                      itemBuilder: (context) {
+                    return [
+                      const PopupMenuItem<int>(
+                        value: 0,
+                        child: Text("Delete"),
+                      ),
+                      const PopupMenuItem<int>(
+                        value: 1,
+                        child: Text("Edit"),
+                      ),
+                    ];
+                  }, onSelected: (value) {
+                    if (value == 0) {
+                      //list에서 삭제
+                    } else if (value == 1) {
+                      //이름 변경
+                    }
+                  }),
                 ],
               ),
             ],
