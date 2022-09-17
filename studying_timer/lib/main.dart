@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
+import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/screens/signup/login.dart';
 import 'package:studying_timer/screens/signup/start_signup.dart';
 
@@ -13,13 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(360, 800),
-        builder: (BuildContext context, Widget? child) => const MaterialApp(
-              title: 'StudyingTimer',
-              debugShowCheckedModeBanner: false,
-              home: Start(),
-            ));
+    return ChangeNotifierProvider<Emphaisis>(
+        create: (_) => Emphaisis(),
+        child: ScreenUtilInit(
+            designSize: const Size(360, 800),
+            builder: (BuildContext context, Widget? child) => const MaterialApp(
+                  title: 'StudyingTimer',
+                  debugShowCheckedModeBanner: false,
+                  home: Start(),
+                )));
   }
 }
 
