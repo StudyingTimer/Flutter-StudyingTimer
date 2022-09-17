@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/screens/bottombar/home.dart';
 import 'package:studying_timer/screens/bottombar/ranking.dart';
 import 'package:studying_timer/screens/bottombar/status.dart';
@@ -23,47 +25,59 @@ class _MyPageState extends State<MyPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _children,
-      ),
-      bottomNavigationBar: Material(
-        color: Colors.white,
-        child: SalomonBottomBar(
-          currentIndex: _currentIndex,
-          onTap: (i) => setState(() => _currentIndex = i),
-          items: [
-            /// Home
-            SalomonBottomBarItem(
-              icon: const Icon(Icons.home),
-              title: const Text("Home"),
-              selectedColor: Colors.purple,
-            ),
+    var emphasis = Provider.of<Emphaisis>(context);
+    return Stack(children: [
+      Scaffold(
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _children,
+        ),
+        bottomNavigationBar: Material(
+          color: Colors.white,
+          child: SalomonBottomBar(
+            currentIndex: _currentIndex,
+            onTap: (i) =>
+                setState(() => {_currentIndex = i}),
+            items: [
+              /// Home
+              SalomonBottomBarItem(
+                icon: const Icon(Icons.home),
+                title: const Text("Home"),
+                selectedColor: Colors.purple,
+              ),
 
-            /// Likes
-            SalomonBottomBarItem(
-              icon: const Icon(FontAwesomeIcons.clipboardList),
-              title: const Text("Todo"),
-              selectedColor: Colors.teal,
-            ),
+              /// Likes
+              SalomonBottomBarItem(
+                icon: const Icon(FontAwesomeIcons.clipboardList),
+                title: const Text("Todo"),
+                selectedColor: Colors.teal,
+              ),
 
-            /// Search
-            SalomonBottomBarItem(
-              icon: const Icon(FontAwesomeIcons.rankingStar),
-              title: const Text("Rank"),
-              selectedColor: Colors.pink,
-            ),
+              /// Search
+              SalomonBottomBarItem(
+                icon: const Icon(FontAwesomeIcons.rankingStar),
+                title: const Text("Rank"),
+                selectedColor: Colors.pink,
+              ),
 
-            /// Profile
-            SalomonBottomBarItem(
-              icon: const Icon(FontAwesomeIcons.chartBar),
-              title: const Text("Status"),
-              selectedColor: Colors.orange,
-            ),
-          ],
+              /// Profile
+              SalomonBottomBarItem(
+                icon: const Icon(FontAwesomeIcons.chartBar),
+                title: const Text("Status"),
+                selectedColor: Colors.orange,
+              ),
+            ],
+          ),
         ),
       ),
-    );
+      emphasis.ispressed
+          ? Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration:
+                  BoxDecoration(color: Colors.black.withOpacity(0.7)),
+            )
+          : Container()
+    ]);
   }
 }
