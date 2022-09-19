@@ -26,17 +26,20 @@ class Ing extends StatefulWidget {
 class _IngState extends State<Ing> {
   late Timer timer = timer;
   NumberFormat formatter = NumberFormat("00");
+
   @override
   void dispose() {
-    timer.cancel();
-
     super.dispose();
+    print('ing.dart가 끝났습니다1');
+    timer.cancel();
+    print('ing.dart가 끝났습니다');
   }
 
   @override
   void initState() {
     super.initState();
     start();
+    print('ing.dart가 실행되었습니다');
   }
 
   void start() {
@@ -72,6 +75,7 @@ class _IngState extends State<Ing> {
                     padding: EdgeInsets.only(right: 10.w),
                     child: IconButton(
                       onPressed: () {
+                        
                         Navigator.pop(context);
                       },
                       icon: const Icon(
