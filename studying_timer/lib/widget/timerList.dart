@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +20,7 @@ class _RankState extends State<TimerList> {
     NumberFormat formatter = NumberFormat("00");
 
     for (var i = 0; i < timers.length; i++) {
+      print('list가 만들어졌습니다 $i');
       int selectBtnColor() {
         late int buttonColor;
 
@@ -34,11 +34,66 @@ class _RankState extends State<TimerList> {
         return buttonColor;
       }
 
+      void FlutterDialog() {
+        String h = formatter.format(widget.timerList[i].hour);
+        String m = formatter.format(widget.timerList[i].minute);
+        String s = formatter.format(widget.timerList[i].second);
+        String time = "$h : $m : $s";
+        showDialog(
+            context: context,
+            //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                //Dialog Main Title
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      timers[i].subject,
+                      style: TextStyle(
+                          fontSize: 19.sp, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                //
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "$time 기록되었습니다",
+                      style: TextStyle(fontSize: 17.sp),
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      elevation: 0.0,
+                    ),
+                    child: const Text(
+                      "확인",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400, color: Colors.black),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+      }
+
       results.add(Container(
         width: double.infinity,
-        height: 75.h,
-        color: Colors.white,
+        height: 73.h,
         margin: EdgeInsets.only(top: 10.h),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
         child: Padding(
           padding: EdgeInsets.only(
             left: 15.w,
@@ -46,12 +101,13 @@ class _RankState extends State<TimerList> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 2.h),
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
+                  onPressed: () async {
+                    await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => Ing(
@@ -59,7 +115,11 @@ class _RankState extends State<TimerList> {
                                 minute: timers[i].minute,
                                 second: timers[i].second,
                                 i: i,
-                                timerList: timers)));
+                                timerList: timers))).then((value) {
+                      setState(() {});
+                    });
+
+                    FlutterDialog();
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 0.0,
@@ -149,6 +209,7 @@ class _RankState extends State<TimerList> {
     return results;
   }
 
+  // 선택 창
   @override
   Widget build(BuildContext context) {
     return Column(
