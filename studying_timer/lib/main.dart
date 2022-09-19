@@ -5,6 +5,7 @@ import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/screens/signup/login.dart';
 import 'package:studying_timer/screens/signup/start_signup.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,15 @@ class MyApp extends StatelessWidget {
             designSize: const Size(360, 800),
             builder: (BuildContext context, Widget? child) => const MaterialApp(
                   title: 'StudyingTimer',
+                  localizationsDelegates: [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: [
+                    Locale('ko', 'KR')
+                  ],
+                  locale: Locale('ko'),
                   debugShowCheckedModeBanner: false,
                   home: Start(),
                 )));
