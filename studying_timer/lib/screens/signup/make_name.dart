@@ -50,7 +50,7 @@ class _Make_NameState extends State<Make_Name> {
             title: Text(
               "닉네임 만들기",
               style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 17.sp,
                   color: Colors.white,
                   fontWeight: FontWeight.w500),
             ),
