@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1079356660880",
+    "project_id": "studyingtimer",
+    "storage_bucket": "studyingtimer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079356660880:android:3abdfbbe98656c0b1ecc15",
+        "android_client_info": {
+          "package_name": "com.example.studying_timer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079356660880-0ej6jkdhvnhr0mma4qbd0ocmcob9ef7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzGE03ctp9mNbyUTZavOLdWYrLI2EedSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079356660880-0ej6jkdhvnhr0mma4qbd0ocmcob9ef7n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
