@@ -8,8 +8,12 @@ class Rank extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          children: const[
-            Text("Rank", style: TextStyle(fontSize: 30),)
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              "Rank",
+              style: TextStyle(fontSize: 30),
+            )
           ],
         ),
       ),
