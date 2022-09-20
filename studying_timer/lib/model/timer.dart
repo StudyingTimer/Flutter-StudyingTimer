@@ -1,5 +1,5 @@
 class TimerModel {
-  final String subject;
+  String subject;
   int hour = 00;
   int minute = 00;
   int second = 00;
