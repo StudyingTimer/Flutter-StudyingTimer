@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:studying_timer/provider/subjectlist.dart';
 import 'package:studying_timer/screens/onpressbottom/ing.dart';
 
 class TimerList extends StatefulWidget {
-  final List<TimerModel> timerList;
-  const TimerList({Key? key, required this.timerList}) : super(key: key);
+  const TimerList({Key? key}) : super(key: key);
 
   @override
   State<TimerList> createState() => _RankState();
 }
 
 class _RankState extends State<TimerList> {
+  final _nameController = TextEditingController();
+
   List<Widget> makeStudyPaper(BuildContext context, List<TimerModel> timers) {
     List<String> _valueList = ['이름 수정', '삭제'];
     late String _selectedValue = '';
@@ -34,10 +37,83 @@ class _RankState extends State<TimerList> {
         return buttonColor;
       }
 
+      void nameDialog() {
+        showDialog(
+            context: context,
+            //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                //Dialog Main Title
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("이름변경"),
+                  ],
+                ),
+                //
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        labelText: '바꿀이름입력',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey, width: 1),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 5),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0, primary: Colors.transparent),
+                    child: const Text(
+                      "변경",
+                      style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        timers[i].subject = _nameController.text;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0, primary: Colors.transparent),
+                    child: const Text("취소",
+                        style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.w500)),
+                    onPressed: () {
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+      }
+
       void FlutterDialog() {
-        String h = formatter.format(widget.timerList[i].hour);
-        String m = formatter.format(widget.timerList[i].minute);
-        String s = formatter.format(widget.timerList[i].second);
+        String h = formatter.format(timers[i].hour);
+        String m = formatter.format(timers[i].minute);
+        String s = formatter.format(timers[i].second);
         String time = "$h : $m : $s";
         showDialog(
             context: context,
@@ -194,9 +270,9 @@ class _RankState extends State<TimerList> {
                     ];
                   }, onSelected: (value) {
                     if (value == 0) {
-                      //list에서 삭제
+                      // timers.removeAt(i);
                     } else if (value == 1) {
-                      //이름 변경
+                      nameDialog();
                     }
                   }),
                 ],
@@ -212,8 +288,9 @@ class _RankState extends State<TimerList> {
   // 선택 창
   @override
   Widget build(BuildContext context) {
+    var subjectList = Provider.of<SubjectList>(context);
     return Column(
-      children: makeStudyPaper(context, widget.timerList),
+      children: makeStudyPaper(context, subjectList.timerList),
     );
   }
 }
