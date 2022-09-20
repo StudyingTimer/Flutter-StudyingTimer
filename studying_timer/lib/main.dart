@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/provider/emphasis.dart';
+import 'package:studying_timer/provider/subjectlist.dart';
 import 'package:studying_timer/screens/signup/login.dart';
 import 'package:studying_timer/screens/signup/start_signup.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,8 +17,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Emphaisis>(
-        create: (_) => Emphaisis(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<Emphaisis>(
+            create: (_) => Emphaisis(),
+          ),
+          ChangeNotifierProvider<SubjectList>(create: (_) => SubjectList()),
+        ],
         child: ScreenUtilInit(
             designSize: const Size(360, 800),
             builder: (BuildContext context, Widget? child) => const MaterialApp(
@@ -27,9 +33,7 @@ class MyApp extends StatelessWidget {
                     GlobalCupertinoLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                   ],
-                  supportedLocales: [
-                    Locale('ko', 'KR')
-                  ],
+                  supportedLocales: [Locale('ko', 'KR')],
                   locale: Locale('ko'),
                   debugShowCheckedModeBanner: false,
                   home: Start(),
@@ -57,9 +61,11 @@ class Start extends StatelessWidget {
             SizedBox(
               height: 30.h,
             ),
-            Text(
-              "공부, 혼자 하지 말고 열품타에서 함께 하세요!",
-              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
+            Material(
+              child: Text(
+                "공부, 혼자 하지 말고 열품타에서 함께 하세요!",
+                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
+              ),
             ),
             SizedBox(
               height: 150.h,
