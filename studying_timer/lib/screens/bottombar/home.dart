@@ -146,8 +146,8 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.r),
                             topRight: Radius.circular(10.r))),
-                    child: Column(children: [
-                      TimerList(timerList: timerList),
+                    child: Column(children: const[
+                      TimerList(),
 
                       //휴식 알림 -> padding.top = 120
                       //타이머 추가 -> padding.top = 60
