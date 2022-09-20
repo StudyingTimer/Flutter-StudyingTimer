@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/provider/emphasis.dart';
+import 'package:studying_timer/provider/subjectlist.dart';
 import 'package:studying_timer/screens/bottombar/home.dart';
 import 'package:studying_timer/screens/bottombar/ranking.dart';
 import 'package:studying_timer/screens/bottombar/status.dart';
@@ -28,11 +29,89 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     var emphasis = Provider.of<Emphaisis>(context);
+    var subjectList = Provider.of<SubjectList>(context);
+
     int position1 = 590;
     int position2 = 530;
     int position3 = 470;
     int position4 = 410;
     int position5 = 350;
+    final _subjectController = TextEditingController();
+
+    void FlutterDialog() {
+      showDialog(
+          context: context,
+          //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              //Dialog Main Title
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text("과목추가"),
+                ],
+              ),
+              //
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    controller: _subjectController,
+                    decoration: const InputDecoration(
+                      labelText: '과목입력',
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                      ),
+                      focusedErrorBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red, width: 5),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0, primary: Colors.transparent),
+                  child: const Text(
+                    "추가",
+                    style: TextStyle(
+                        color: Colors.blueAccent, fontWeight: FontWeight.w500),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      emphasis.change();
+                      subjectList.add(_subjectController.text);
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0, primary: Colors.transparent),
+                  child: const Text("취소",
+                      style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w500)),
+                  onPressed: () {
+                    setState(() {
+                      emphasis.change();
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
+    }
 
     return Stack(children: [
       Scaffold(
@@ -92,120 +171,218 @@ class _MyPageState extends State<MyPage> {
       Stack(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 290.w, top: position5.h),
+            padding: EdgeInsets.only(top: position5.h, left: 243.w),
             child: AnimatedScale(
               duration: const Duration(microseconds: 140000),
               scale: emphasis.ispressed ? 1 : 0,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      primary: CommonColor.orange,
-                      minimumSize: Size(55.w, 50.h)),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.menu_book_outlined,
-                        color: Colors.white,
-                        size: 25.h,
-                      ),
-                      Text(
-                        "+과목 추가",
-                        style: TextStyle(fontSize: 7.sp, color: Colors.white),
-                      )
-                    ],
-                  )),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 290.w, top: position4.h),
-            child: AnimatedScale(
-              duration: const Duration(microseconds: 120000),
-              scale: emphasis.ispressed ? 1 : 0,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      primary: CommonColor.orange,
-                      minimumSize: Size(55.w, 50.h)),
-                  child: Icon(
-                    Icons.check_box_outlined,
-                    color: Colors.white,
-                    size: 25.h,
-                  )),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 290.w, top: position3.h),
-            child: AnimatedScale(
-              duration: const Duration(microseconds: 100000),
-              scale: emphasis.ispressed ? 1 : 0,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      primary: CommonColor.orange,
-                      minimumSize: Size(55.w, 50.h)),
-                  child: Icon(
-                    FontAwesomeIcons.calendarDay,
-                    color: Colors.white,
-                    size: 25.h,
-                  )),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 290.w, top: position2.h),
-            child: AnimatedScale(
-              duration: const Duration(microseconds: 80000),
-              scale: emphasis.ispressed ? 1 : 0,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      primary: CommonColor.orange,
-                      minimumSize: Size(55.w, 50.h)),
-                  child: Icon(
-                    Icons.wifi_off_outlined,
-                    color: Colors.white,
-                    size: 25.h,
-                  )),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 290.w, top: position1.h),
-            child: AnimatedScale(
-              duration: const Duration(microseconds: 60000),
-              scale: emphasis.ispressed ? 1 : 0,
+              alignment: Alignment.bottomCenter,
               child: Row(
                 children: [
+                  Text(
+                    "+과목",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.none,
+                        fontSize: 15.sp),
+                  ),
+                  SizedBox(
+                    width: 9.w,
+                  ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        FlutterDialog();
+                      },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.white, minimumSize: Size(55.w, 50.h)),
-                      child: const Icon(
-                        Icons.access_alarm_outlined,
-                        color: Colors.black,
+                          primary: CommonColor.orange,
+                          minimumSize: Size(55.w, 50.h)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.menu_book_outlined,
+                            color: Colors.white,
+                            size: 25.h,
+                          ),
+                        ],
                       )),
                 ],
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 290.w, top: 660.h),
-            child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    emphasis.change();
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  elevation: 6.0,
-                  minimumSize: Size(55.w, 55.h),
-                  primary: Colors.white,
-                ),
-                child: Icon(
-                  emphasis.ispressed ? Icons.close : Icons.add,
-                  color: CommonColor.orange,
-                  size: 25.h,
-                )),
+            padding: EdgeInsets.only(top: position4.h, left: 223.w),
+            child: AnimatedScale(
+              duration: const Duration(microseconds: 120000),
+              scale: emphasis.ispressed ? 1 : 0,
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                children: [
+                  Text(
+                    "+To-do",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.none,
+                        fontSize: 15.sp),
+                  ),
+                  SizedBox(
+                    width: 9.w,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          primary: CommonColor.orange,
+                          minimumSize: Size(55.w, 50.h)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.check_box_outlined,
+                            color: Colors.white,
+                            size: 25.h,
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: position3.h, left: 243.w),
+            child: AnimatedScale(
+              alignment: Alignment.bottomCenter,
+              duration: const Duration(microseconds: 100000),
+              scale: emphasis.ispressed ? 1 : 0,
+              child: Row(
+                children: [
+                  Text(
+                    "+일정",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.none,
+                        fontSize: 15.sp),
+                  ),
+                  SizedBox(
+                    width: 9.w,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          primary: CommonColor.orange,
+                          minimumSize: Size(55.w, 50.h)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.calendarDay,
+                            color: Colors.white,
+                            size: 25.h,
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: position2.h, left: 198.w),
+            child: AnimatedScale(
+              duration: const Duration(microseconds: 80000),
+              scale: emphasis.ispressed ? 1 : 0,
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                children: [
+                  Text(
+                    "오프라인모드",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.none,
+                        fontSize: 15.sp),
+                  ),
+                  SizedBox(
+                    width: 9.w,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white, minimumSize: Size(55.w, 50.h)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.wifi_off_outlined,
+                            color: Colors.black,
+                            size: 25.h,
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: position1.h, left: 225.w),
+            child: AnimatedScale(
+              duration: const Duration(microseconds: 60000),
+              alignment: Alignment.bottomCenter,
+              scale: emphasis.ispressed ? 1 : 0,
+              child: Row(
+                children: [
+                  Text(
+                    "휴식알림",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.none,
+                        fontSize: 15.sp),
+                  ),
+                  SizedBox(
+                    width: 9.w,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white, minimumSize: Size(55.w, 50.h)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.access_alarm_outlined,
+                            color: Colors.black,
+                            size: 25.h,
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 287.w, top: 660.h),
+            child: Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        emphasis.change();
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      elevation: 6.0,
+                      minimumSize: Size(55.w, 55.h),
+                      primary: Colors.white,
+                    ),
+                    child: Icon(
+                      emphasis.ispressed ? Icons.close : Icons.add,
+                      color: CommonColor.orange,
+                      size: 25.h,
+                    )),
+              ],
+            ),
           ),
         ],
       ),
