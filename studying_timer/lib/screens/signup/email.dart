@@ -61,7 +61,7 @@ class _EmailState extends State<Email> {
                             height: 10.h,
                           ),
                           Text(
-                            "열정 품은 타이머",
+                            "공부하는 뻐꾸기",
                             style: TextStyle(
                                 fontSize: 25.sp,
                                 color: Colors.black,
