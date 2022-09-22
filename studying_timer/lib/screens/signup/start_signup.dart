@@ -53,7 +53,7 @@ class _Start_signupState extends State<Start_signup> {
                           height: 10.h,
                         ),
                         Text(
-                          "열정 품은 타이머",
+                          "공부하는 뻐꾸기",
                           style: TextStyle(
                               fontSize: 25.sp,
                               color: Colors.black,
