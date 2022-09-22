@@ -79,7 +79,7 @@ class _RankState extends State<TimerList> {
                 actions: <Widget>[
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        elevation: 0, primary: Colors.transparent),
+                        elevation: 0, backgroundColor: Colors.transparent),
                     child: const Text(
                       "변경",
                       style: TextStyle(
@@ -95,7 +95,7 @@ class _RankState extends State<TimerList> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        elevation: 0, primary: Colors.transparent),
+                        elevation: 0, backgroundColor: Colors.transparent),
                     child: const Text("취소",
                         style: TextStyle(
                             color: Colors.blueAccent,
@@ -106,6 +106,58 @@ class _RankState extends State<TimerList> {
                     },
                   ),
                 ],
+              );
+            });
+      }
+
+      void selectDialog() {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              timers.removeAt(i);
+                              Navigator.pop(context);
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white),
+                          child: Text(
+                            "삭제",
+                            style:
+                                TextStyle(fontSize: 19.sp, color: Colors.blue),
+                          )),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            nameDialog();
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white),
+                          child: Text(
+                            "이름 변경",
+                            style:
+                                TextStyle(fontSize: 19.sp, color: Colors.blue),
+                          )),
+                    ),
+                  ],
+                ),
               );
             });
       }
@@ -146,7 +198,7 @@ class _RankState extends State<TimerList> {
                 actions: <Widget>[
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
+                      backgroundColor: Colors.transparent,
                       elevation: 0.0,
                     ),
                     child: const Text(
@@ -201,19 +253,19 @@ class _RankState extends State<TimerList> {
                       elevation: 0.0,
                       shape: const CircleBorder(),
                       minimumSize: Size(35.w, 35.h),
-                      primary: Color(selectBtnColor())),
+                      backgroundColor: Color(selectBtnColor())),
                   child: const Icon(Icons.play_arrow),
                 ),
               ),
-              Text(
-                timers[i].subject,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600),
-              ),
               SizedBox(
-                width: 110.w,
+                width: 150.w,
+                child: Text(
+                  timers[i].subject,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -254,27 +306,20 @@ class _RankState extends State<TimerList> {
                         color: Colors.black,
                         fontWeight: FontWeight.w400),
                   ),
-                  PopupMenuButton(
-                      // add icon, by default "3 dot" icon
-                      // icon: Icon(Icons.book)
-                      itemBuilder: (context) {
-                    return [
-                      const PopupMenuItem<int>(
-                        value: 0,
-                        child: Text("Delete"),
-                      ),
-                      const PopupMenuItem<int>(
-                        value: 1,
-                        child: Text("Edit"),
-                      ),
-                    ];
-                  }, onSelected: (value) {
-                    if (value == 0) {
-                      // timers.removeAt(i);
-                    } else if (value == 1) {
-                      nameDialog();
-                    }
-                  }),
+                  ElevatedButton(
+                    onPressed: () {
+                      selectDialog();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0.0,
+                        minimumSize: Size(10.w, 20.h),
+                        shape: const CircleBorder()),
+                    child: const Icon(
+                      Icons.more_vert,
+                      color: Colors.black,
+                    ),
+                  )
                 ],
               ),
             ],
