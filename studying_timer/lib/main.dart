@@ -63,7 +63,7 @@ class Start extends StatelessWidget {
             ),
             Material(
               child: Text(
-                "공부, 혼자 하지 말고 열품타에서 함께 하세요!",
+                "공부, 혼자 하지 말고 공뻑에서 함께 하세요!",
                 style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
               ),
             ),
@@ -113,7 +113,7 @@ class Start extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                  backgroundColor: Colors.white,
                   minimumSize: Size(double.infinity, 45.h),
                   shape: RoundedRectangleBorder(
                       side: BorderSide(width: 1.0, color: CommonColor.orange),
