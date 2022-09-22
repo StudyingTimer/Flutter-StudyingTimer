@@ -80,7 +80,7 @@ class _MyPageState extends State<MyPage> {
               actions: <Widget>[
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      elevation: 0, primary: Colors.transparent),
+                      elevation: 0, backgroundColor: Colors.transparent),
                   child: const Text(
                     "추가",
                     style: TextStyle(
@@ -96,7 +96,7 @@ class _MyPageState extends State<MyPage> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      elevation: 0, primary: Colors.transparent),
+                      elevation: 0, backgroundColor: Colors.transparent),
                   child: const Text("취소",
                       style: TextStyle(
                           color: Colors.blueAccent,
@@ -113,61 +113,7 @@ class _MyPageState extends State<MyPage> {
           });
     }
 
-    return Stack(children: [
-      Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: IndexedStack(
-          index: _currentIndex,
-          children: _children,
-        ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                  top: BorderSide(
-                      color: Colors.black.withOpacity(0.1), width: 1.w))),
-          child: SalomonBottomBar(
-            currentIndex: _currentIndex,
-            onTap: (i) => setState(() => {_currentIndex = i}),
-            items: [
-              /// Home
-              SalomonBottomBarItem(
-                icon: const Icon(Icons.home),
-                title: const Text("Home"),
-                selectedColor: Colors.purple,
-              ),
-
-              /// Likes
-              SalomonBottomBarItem(
-                icon: const Icon(FontAwesomeIcons.clipboardList),
-                title: const Text("Todo"),
-                selectedColor: Colors.teal,
-              ),
-
-              /// Search
-              SalomonBottomBarItem(
-                icon: const Icon(FontAwesomeIcons.rankingStar),
-                title: const Text("Rank"),
-                selectedColor: Colors.pink,
-              ),
-
-              /// Profile
-              SalomonBottomBarItem(
-                icon: const Icon(FontAwesomeIcons.chartBar),
-                title: const Text("Status"),
-                selectedColor: Colors.orange,
-              ),
-            ],
-          ),
-        ),
-      ),
-      emphasis.ispressed
-          ? Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
-            )
-          : Container(),
+    List<Widget> buttonList = [
       Stack(
         children: [
           Padding(
@@ -194,7 +140,7 @@ class _MyPageState extends State<MyPage> {
                         FlutterDialog();
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: CommonColor.orange,
+                          backgroundColor: CommonColor.orange,
                           minimumSize: Size(55.w, 50.h)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -232,7 +178,7 @@ class _MyPageState extends State<MyPage> {
                   ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                          primary: CommonColor.orange,
+                          backgroundColor: CommonColor.orange,
                           minimumSize: Size(55.w, 50.h)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -308,7 +254,8 @@ class _MyPageState extends State<MyPage> {
                   ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.white, minimumSize: Size(55.w, 50.h)),
+                          backgroundColor: Colors.white,
+                          minimumSize: Size(55.w, 50.h)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -374,7 +321,7 @@ class _MyPageState extends State<MyPage> {
                       shape: const CircleBorder(),
                       elevation: 6.0,
                       minimumSize: Size(55.w, 55.h),
-                      primary: Colors.white,
+                      backgroundColor: Colors.white,
                     ),
                     child: Icon(
                       emphasis.ispressed ? Icons.close : Icons.add,
@@ -386,6 +333,178 @@ class _MyPageState extends State<MyPage> {
           ),
         ],
       ),
+      Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: position1.h, left: 225.w),
+            child: AnimatedScale(
+              duration: const Duration(microseconds: 60000),
+              alignment: Alignment.bottomCenter,
+              scale: emphasis.ispressed ? 1 : 0,
+              child: Row(
+                children: [
+                  Text(
+                    "+To-do",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.none,
+                        fontSize: 15.sp),
+                  ),
+                  SizedBox(
+                    width: 9.w,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: CommonColor.orange,
+                          minimumSize: Size(55.w, 50.h)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.check_box_outlined,
+                            color: Colors.white,
+                            size: 25.h,
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 287.w, top: 660.h),
+            child: Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        emphasis.change();
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      elevation: 6.0,
+                      minimumSize: Size(55.w, 55.h),
+                      backgroundColor: Colors.white,
+                    ),
+                    child: Icon(
+                      emphasis.ispressed ? Icons.close : Icons.add,
+                      color: CommonColor.orange,
+                      size: 25.h,
+                    )),
+              ],
+            ),
+          ),
+        ],
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 287.w, top: 660.h),
+        child: Row(
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    emphasis.change();
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  elevation: 6.0,
+                  minimumSize: Size(55.w, 55.h),
+                  backgroundColor: Colors.white,
+                ),
+                child: Icon(
+                  emphasis.ispressed ? Icons.close : Icons.add,
+                  color: CommonColor.orange,
+                  size: 25.h,
+                )),
+          ],
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 287.w, top: 660.h),
+        child: Row(
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    emphasis.change();
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  elevation: 6.0,
+                  minimumSize: Size(55.w, 55.h),
+                  backgroundColor: Colors.white,
+                ),
+                child: Icon(
+                  emphasis.ispressed ? Icons.close : Icons.add,
+                  color: CommonColor.orange,
+                  size: 25.h,
+                )),
+          ],
+        ),
+      ),
+    ];
+
+    return Stack(children: [
+      Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _children,
+        ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                  top: BorderSide(
+                      color: Colors.black.withOpacity(0.1), width: 1.w))),
+          child: SalomonBottomBar(
+            currentIndex: _currentIndex,
+            onTap: (i) => setState(() => {_currentIndex = i}),
+            items: [
+              /// Home
+              SalomonBottomBarItem(
+                icon: const Icon(Icons.home),
+                title: const Text("Home"),
+                selectedColor: Colors.purple,
+              ),
+
+              /// Likes
+              SalomonBottomBarItem(
+                icon: const Icon(FontAwesomeIcons.clipboardList),
+                title: const Text("Todo"),
+                selectedColor: Colors.teal,
+              ),
+
+              /// Search
+              SalomonBottomBarItem(
+                icon: const Icon(FontAwesomeIcons.rankingStar),
+                title: const Text("Rank"),
+                selectedColor: Colors.pink,
+              ),
+
+              /// Profile
+              SalomonBottomBarItem(
+                icon: const Icon(FontAwesomeIcons.chartBar),
+                title: const Text("Status"),
+                selectedColor: Colors.orange,
+              ),
+            ],
+          ),
+        ),
+      ),
+      emphasis.ispressed
+          ? Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
+            )
+          : Container(),
+      buttonList[_currentIndex]
     ]);
   }
 }
