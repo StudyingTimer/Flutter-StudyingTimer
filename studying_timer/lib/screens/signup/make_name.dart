@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/screens/bottombar/bottom.dart';
 import 'package:studying_timer/screens/bottombar/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class Make_Name extends StatefulWidget {
   const Make_Name({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class _Make_NameState extends State<Make_Name> {
   final int maxLength = 11;
   String textValue = "";
   final myController = TextEditingController();
+  String name = "";
 
   void toastmessage() {
     Fluttertoast.showToast(
@@ -28,8 +32,27 @@ class _Make_NameState extends State<Make_Name> {
         fontSize: 16.sp);
   }
 
+  void postequest(var signupData) async {
+    print("실행됨");
+    String url = 'http://localhost:8080/person/signUp';
+    http.Response response = await http.post(Uri.parse(url),
+        body: <String, String>{
+          "email": signupData.name,
+          "password": signupData.id,
+          "nickname": signupData.pw
+        });
+    print(response.body);
+    print('실행되었습ㄴ디ㅏ');
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const MyPage()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var signupData = Provider.of<SignupData>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -107,10 +130,15 @@ class _Make_NameState extends State<Make_Name> {
                       if (myController.text == "") {
                         toastmessage();
                       } else {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyPage()));
+                        setState(() {
+                          setState(() {
+                            name = myController.text;
+                            print(name);
+                            signupData.inputName(name);
+                            postequest(signupData);
+                            
+                          });
+                        });
                       }
                     },
                     style: ElevatedButton.styleFrom(
