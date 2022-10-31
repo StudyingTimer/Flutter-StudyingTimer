@@ -333,70 +333,49 @@ class _MyPageState extends State<MyPage> {
           ),
         ],
       ),
+
+      //Todo page 화면
       Stack(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: position1.h, left: 225.w),
-            child: AnimatedScale(
-              duration: const Duration(microseconds: 60000),
-              alignment: Alignment.bottomCenter,
-              scale: emphasis.ispressed ? 1 : 0,
-              child: Row(
-                children: [
-                  Text(
-                    "+To-do",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.none,
-                        fontSize: 15.sp),
-                  ),
-                  SizedBox(
-                    width: 9.w,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: CommonColor.orange,
-                          minimumSize: Size(55.w, 50.h)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.check_box_outlined,
-                            color: Colors.white,
-                            size: 25.h,
-                          ),
-                        ],
-                      )),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 287.w, top: 660.h),
-            child: Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        emphasis.change();
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      elevation: 6.0,
-                      minimumSize: Size(55.w, 55.h),
-                      backgroundColor: Colors.white,
-                    ),
-                    child: Icon(
-                      emphasis.ispressed ? Icons.close : Icons.add,
-                      color: CommonColor.orange,
-                      size: 25.h,
-                    )),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(top: position1.h, left: 225.w),
+          //   child: AnimatedScale(
+          //     duration: const Duration(microseconds: 60000),
+          //     alignment: Alignment.bottomCenter,
+          //     scale: emphasis.ispressed ? 1 : 0,
+          //     child: Row(
+          //       children: [
+          //         Text(
+          //           "+To-do",
+          //           style: TextStyle(
+          //               color: Colors.white,
+          //               fontWeight: FontWeight.w400,
+          //               decoration: TextDecoration.none,
+          //               fontSize: 15.sp),
+          //         ),
+          //         SizedBox(
+          //           width: 9.w,
+          //         ),
+          //         ElevatedButton(
+          //             onPressed: () {},
+          //             style: ElevatedButton.styleFrom(
+          //                 backgroundColor: CommonColor.orange,
+          //                 minimumSize: Size(55.w, 50.h)),
+          //             child: Row(
+          //               mainAxisSize: MainAxisSize.min,
+          //               children: [
+          //                 Icon(
+          //                   Icons.check_box_outlined,
+          //                   color: Colors.white,
+          //                   size: 25.h,
+          //                 ),
+          //               ],
+          //             )),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          
         ],
       ),
       Padding(
@@ -449,7 +428,8 @@ class _MyPageState extends State<MyPage> {
       ),
     ];
 
-    return Stack(children: [
+    return Stack(
+      children: [
       Scaffold(
         resizeToAvoidBottomInset: false,
         body: IndexedStack(
