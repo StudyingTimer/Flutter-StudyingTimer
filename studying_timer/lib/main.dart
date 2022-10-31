@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/provider/emphasis.dart';
+import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/provider/subjectlist.dart';
 import 'package:studying_timer/screens/signup/login.dart';
 import 'package:studying_timer/screens/signup/start_signup.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<Emphaisis>(
             create: (_) => Emphaisis(),
+          ),
+          ChangeNotifierProvider<SignupData>(
+            create: (_) => SignupData(),
           ),
           ChangeNotifierProvider<SubjectList>(create: (_) => SubjectList()),
         ],
@@ -89,7 +93,7 @@ class Start extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                backgroundColor: Colors.white,
                   minimumSize: Size(double.infinity, 45.h),
                   shape: RoundedRectangleBorder(
                       side: BorderSide(width: 1.0, color: CommonColor.orange),
