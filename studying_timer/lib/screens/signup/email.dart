@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
+import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/screens/signup/make_name.dart';
 
 class Email extends StatefulWidget {
@@ -13,6 +15,8 @@ class Email extends StatefulWidget {
 class _EmailState extends State<Email> {
   @override
   Widget build(BuildContext context) {
+    var signupData = Provider.of<SignupData>(context);
+
     final _pwController = TextEditingController();
     String pw = '';
 
@@ -95,15 +99,16 @@ class _EmailState extends State<Email> {
                 padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
                 child: TextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: '이메일 입력',
-                    enabledBorder: UnderlineInputBorder(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                      borderSide:
+                          BorderSide(color: CommonColor.orange, width: 1),
                     ),
-                    focusedErrorBorder: UnderlineInputBorder(
+                    focusedErrorBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.red, width: 5),
                     ),
                   ),
@@ -149,15 +154,22 @@ class _EmailState extends State<Email> {
                 padding: EdgeInsets.only(top: 30.h, left: 28.w, right: 28.w),
                 child: ElevatedButton(
                   onPressed: () {
-                    
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Make_Name()));
+                    setState(() {
+                      pw = _pwController.text;
+                      email = _emailController.text;
+                      print(pw);
+                      print(email);
+                      signupData.inputPw(pw);
+                      signupData.inputEmail(email);
+                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Make_Name()));
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
-                    primary: CommonColor.orange,
+                    backgroundColor: CommonColor.orange,
                     minimumSize: Size(double.infinity, 40.h),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.h)),
