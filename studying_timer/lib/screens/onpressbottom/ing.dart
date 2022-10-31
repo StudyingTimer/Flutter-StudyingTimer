@@ -39,7 +39,8 @@ class _IngState extends State<Ing> {
   void initState() {
     super.initState();
     start();
-    print('ing.dart가 실행되었습니다');
+    // ignore: avoid_print
+    print('타이머가 실행되었습니다');
   }
 
   void start() {
