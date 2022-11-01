@@ -5,9 +5,8 @@ import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/provider/subjectlist.dart';
-import 'package:studying_timer/screens/signup/login.dart';
-import 'package:studying_timer/screens/signup/start_signup.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:studying_timer/screens/signup/bsm_webview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,48 +64,26 @@ class Start extends StatelessWidget {
             SizedBox(
               height: 30.h,
             ),
-            Material(
-              child: Text(
-                "공부, 혼자 하지 말고 공뻑에서 함께 하세요!",
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
-              ),
+            Text(
+              "공부, 혼자 하지 말고 공뻑에서 함께 하세요!",
+              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
             ),
             SizedBox(
-              height: 150.h,
+              height: 5.h,
             ),
-            // ignore: sort_child_properties_last
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Start_signup()));
-                },
-                // ignore: sort_child_properties_last
-                child: Text(
-                  "새로 시작하기",
-                  style: TextStyle(
-                      fontSize: 15.sp,
-                      color: CommonColor.orange,
-                      fontWeight: FontWeight.w600),
-                ),
-                style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                  minimumSize: Size(double.infinity, 45.h),
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1.0, color: CommonColor.orange),
-                      borderRadius: BorderRadius.circular(20.h)),
-                ),
-              ),
+            const Text(
+              "(BSM 전용)",
+              style: TextStyle(color: Colors.red),
+            ),
+            SizedBox(
+              height: 130.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Login()));
+                      MaterialPageRoute(builder: (context) => const Webview()));
                 },
                 // ignore: sort_child_properties_last
                 child: Text(
@@ -126,10 +103,10 @@ class Start extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 55.h,
+              height: 115.h,
             ),
             Text(
-              "Pallo",
+              "Jo & Lee",
               style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
             )
           ],
