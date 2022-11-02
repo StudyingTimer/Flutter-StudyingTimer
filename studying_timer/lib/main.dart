@@ -56,10 +56,9 @@ class Start extends StatelessWidget {
             SizedBox(
               height: 270.h,
             ),
-            Icon(
-              Icons.play_arrow_outlined,
-              size: 120.h,
-              color: CommonColor.orange,
+            Image.asset(
+              "images/logo.png",
+              scale: 2.5.r,
             ),
             SizedBox(
               height: 30.h,
