@@ -32,23 +32,21 @@ class _Make_NameState extends State<Make_Name> {
         fontSize: 16.sp);
   }
 
-  void postequest(var signupData) async {
-    print("실행됨");
-    String url = 'http://localhost:8080/person/signUp';
-    http.Response response = await http.post(Uri.parse(url),
-        body: <String, String>{
-          "email": signupData.name,
-          "password": signupData.id,
-          "nickname": signupData.pw
-        });
-    print(response.body);
-    print('실행되었습ㄴ디ㅏ');
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MyPage()));
-    }
-  }
+  // void postequest(var signupData) async {
+  //   print("실행됨");
+  //   String url = 'http://localhost:8080/person/signUp';
+  //   http.Response response = await http.post(Uri.parse(url),
+  //       body: <String, String>{
+  //         "email": signupData.name,
+  //         "password": signupData.id,
+  //         "nickname": signupData.pw
+  //       });
+  //   print(response.body);
+  //   print('실행되었습ㄴ디ㅏ');
+  //   print(response.statusCode);
+  //   if (response.statusCode == 200) {
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -135,8 +133,11 @@ class _Make_NameState extends State<Make_Name> {
                             name = myController.text;
                             print(name);
                             signupData.inputName(name);
-                            postequest(signupData);
-                            
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MyPage()));
+                            // postequest(signupData);
                           });
                         });
                       }
