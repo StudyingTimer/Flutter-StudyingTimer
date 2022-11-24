@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'package:studying_timer/provider/emphasis.dart';
-import 'package:studying_timer/widget/timerList.dart';
+import 'package:studying_timer/widget/timerlist.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
