@@ -37,6 +37,10 @@
 ### 사용기술스택
 앱 :  [Flutter](https://flutter.dev/?gclid=Cj0KCQiAg_KbBhDLARIsANx7wAz5lYyBO9RFwhX-V1IJ_xWVuCK1cZkySEkWeqZMPGofPCvRPaHPlWAaAijFEALw_wcB&gclsrc=aw.ds)
 백엔드 :  [Spring](https://docs.spring.io/spring-framework/docs/current/reference/html/)
+		
+### 개발기간
+
+2022.08 ~ 2022.12 (4개월)
 
 
 
@@ -63,4 +67,18 @@ Flutter doctor에서 오류가 난다면 구글링 후 해결
 - Todo List (미완)
 - 랭킹 (미완)
 - 통계 (미완)
+		
+## 배운점 & 아쉬운점
+		
+### 배운점
+ - Provider의 개념과 MultiProvider의 활용
+ - AnimatedOpacty, AnimatedPadding, AnimatedCotianer, AnimatedScale등등 애니메이션 기능 활용
+ - 프론트에서 서버까지의 흐름
+ - JWT 방식
+		
+### 아쉬운점
+ - To-do 페이지에서 애니메이션 구현에서 시간을 너무 많이 잡아먹은점
+ - 타이머를 눌렀을 때 휴대폰 내에 아무기능도 사용하지 못하게 하는 기능을 구현 
+		
 
+		
