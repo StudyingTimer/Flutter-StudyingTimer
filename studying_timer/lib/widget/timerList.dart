@@ -258,7 +258,7 @@ class _RankState extends State<TimerList> {
                 ),
               ),
               SizedBox(
-                width: 150.w,
+                width: 130.w,
                 child: Text(
                   timers[i].subject,
                   style: TextStyle(
