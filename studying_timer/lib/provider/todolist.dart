@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:studying_timer/model/timer.dart';
+import 'package:studying_timer/model/todomodel.dart';
 
-class SubjectList extends ChangeNotifier {
+class TodoLists extends ChangeNotifier {
   // ChangeNotifier를 extends한다.
-  final List<TimerModel> _timerList = <TimerModel>[];
+  final List<TodoModel> _todoList = <TodoModel>[];
 
-  List<TimerModel> get timerList => _timerList;
+  List<TodoModel> get todoList => _todoList;
 
-  void add(String subject) {
-    timerList.add(TimerModel(subject));
+  void add(String content) {
+    todoList.add(TodoModel(content));
     notifyListeners();
   }
 }
