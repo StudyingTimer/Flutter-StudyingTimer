@@ -22,7 +22,7 @@
 
 ## 팀원역할
 
-- **Mobile-FrontEnd** 조용제(Lovingcats)
+- **Mobile-FrontEnd** 조용제(Lovingcats)	
 - **BackEnd** 이경신(Ajrdn)
 <br>
 		
@@ -43,6 +43,7 @@
 		
 ### 사용기술스택
 앱 :  [Flutter](https://flutter.dev/?gclid=Cj0KCQiAg_KbBhDLARIsANx7wAz5lYyBO9RFwhX-V1IJ_xWVuCK1cZkySEkWeqZMPGofPCvRPaHPlWAaAijFEALw_wcB&gclsrc=aw.ds)
+<br>
 백엔드 :  [Spring](https://docs.spring.io/spring-framework/docs/current/reference/html/)
 	
 <br>
