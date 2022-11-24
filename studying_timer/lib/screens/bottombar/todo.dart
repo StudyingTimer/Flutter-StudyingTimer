@@ -12,16 +12,18 @@ class Todo extends StatefulWidget {
 
 class _TodoState extends State<Todo> {
   var now = DateTime.now();
-  bool ispressed = false;
-  bool addispressed = false;
+  bool firstispressed = false;
+  bool firstaddispressed = false;
   final myController = TextEditingController();
   late String formatDate1 = DateFormat('MM. dd. ').format(now);
   late String formatData2 = DateFormat('E', 'ko').format(now);
   int buttonleft = 90;
   int buttonright = 90;
   int buttontop = 380;
+  int secondtop = 650;
+  double secondleft = 156.5;
   FocusNode myFocusNode = FocusNode();
-
+  bool secondpressed = false;
   @override
   void dispose() {
     myFocusNode.dispose();
@@ -31,12 +33,17 @@ class _TodoState extends State<Todo> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap:
+          // firstaddispressed ? (){
+
+          // } :
+          () {
         FocusScope.of(context).unfocus();
         myController.clear();
         setState(() {
-          ispressed = false;
-          addispressed = false;
+          secondpressed = false;
+          firstispressed = false;
+          firstaddispressed = false;
         });
       },
       child: Scaffold(
@@ -76,30 +83,71 @@ class _TodoState extends State<Todo> {
           body: Stack(
             children: [
               Padding(
-                  padding: EdgeInsets.only(left: 155.w, top: 100.h),
+                  padding: EdgeInsets.only(left: 155.w, top: 70.h),
                   child: Text(
                     "todo",
-                    style: TextStyle(fontSize: 18.sp, color: Colors.black),
+                    style: TextStyle(
+                        fontSize: 25.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500),
                   )),
+              AnimatedPadding(
+                duration: const Duration(microseconds: 240000),
+                padding: EdgeInsets.only(
+                    top: firstaddispressed ? 180.h : 450.h,
+                    left: firstaddispressed ? 25.w : 250.w),
+                child: AnimatedOpacity(
+                  duration: const Duration(microseconds: 240000),
+                  opacity: firstaddispressed ? 1 : 0,
+                  child: AnimatedContainer(
+                    duration: const Duration(microseconds: 240000),
+                    width: firstaddispressed ? 145.w : 0.w,
+                    height: firstaddispressed ? 180.h : 0.w,
+                    decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 2,
+                            blurRadius: 5.0,
+                            offset:
+                                Offset(0.w, 2.h), // changes position of shadow
+                          ),
+                        ],
+                        border: Border.all(width: 0.5.w, color: Colors.black),
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: Colors.white),
+                  ),
+                ),
+              ),
               GestureDetector(
-                onTap: () {
-                  setState(() {
-                    ispressed = true;
-                  });
-                },
+                onTap: firstispressed
+                    ? () {
+                        setState(() {
+                          secondpressed = true;
+                        });
+                      }
+                    : () {
+                        setState(() {
+                          firstispressed = true;
+                        });
+                      },
                 child: AnimatedPadding(
                   padding: EdgeInsets.only(
-                      left: ispressed
-                          ? addispressed
-                              ? 156.5.w
-                              : 23.w
-                          : 90.w,
-                      right: ispressed
-                          ? addispressed
-                              ? 156.5.w
-                              : 23.w
-                          : 90.w,
-                      top: addispressed ? 650.h : 380.h),
+                      left: secondpressed
+                          ? 23.w
+                          : firstispressed
+                              ? firstaddispressed
+                                  ? secondleft.w
+                                  : 23.w
+                              : 90.w,
+                      right: secondpressed
+                          ? 23.w
+                          : firstispressed
+                              ? firstaddispressed
+                                  ? secondleft.w
+                                  : 23.w
+                              : 90.w,
+                      top: firstaddispressed ? secondtop.h : 380.h),
                   duration: const Duration(microseconds: 240000),
                   child: AnimatedContainer(
                     duration: const Duration(microseconds: 240000),
@@ -117,24 +165,26 @@ class _TodoState extends State<Todo> {
                         ],
                         border: Border.all(width: 0.5.w, color: Colors.black),
                         borderRadius: BorderRadius.circular(30.r),
-                        color: ispressed
-                            ? addispressed
-                                ? Colors.black
-                                : Colors.white
-                            : Colors.black),
+                        color: secondpressed
+                            ? Colors.white
+                            : firstispressed
+                                ? firstaddispressed
+                                    ? Colors.black
+                                    : Colors.white
+                                : Colors.black),
                   ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    ispressed = true;
+                    firstispressed = true;
                   });
                 },
                 child: Padding(
                   padding: EdgeInsets.only(left: 154.w, top: 401.h),
                   child: AnimatedOpacity(
-                    opacity: ispressed ? 0 : 1,
+                    opacity: firstispressed ? 0 : 1,
                     duration: const Duration(microseconds: 100000),
                     child: Text(
                       "Add item",
@@ -146,18 +196,18 @@ class _TodoState extends State<Todo> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    ispressed = true;
+                    firstispressed = true;
                   });
                 },
                 child: AnimatedPadding(
                     duration: const Duration(microseconds: 180000),
                     padding: EdgeInsets.only(
-                        left: 50.w, top: addispressed ? 200.h : 378.h),
-                    child: ispressed
+                        left: 50.w, top: firstaddispressed ? 200.h : 378.h),
+                    child: firstispressed
                         ? TextField(
                             focusNode: myFocusNode,
                             controller: myController,
-                            autofocus: ispressed ? true : false,
+                            autofocus: firstispressed ? true : false,
                             style:
                                 TextStyle(fontSize: 15.sp, color: Colors.black),
                             textAlign: TextAlign.start,
@@ -182,34 +232,41 @@ class _TodoState extends State<Todo> {
                         : const Text("")),
               ),
               GestureDetector(
-                onTap: () {
-                  setState(() {
-                    ispressed
-                        ? {
-                            addispressed = true,
-                            FocusScope.of(context).unfocus()
-                          }
-                        : {};
-                  });
-                },
+                onTap: firstaddispressed
+                    ? () {
+                        setState(() {
+                          secondpressed = true;
+                          print("실행됨");
+                        });
+                      }
+                    : () {
+                        setState(() {
+                          firstaddispressed = true;
+                          FocusScope.of(context).unfocus();
+                        });
+                      },
                 child: AnimatedPadding(
                     duration: const Duration(microseconds: 160000),
                     padding: EdgeInsets.only(
-                        left: ispressed
-                            ? addispressed
-                                ? 171.w
-                                : 300.w
-                            : 125.w,
-                        top: addispressed ? 668.h : 398.h),
+                        left: secondpressed
+                            ? 300.w
+                            : firstispressed
+                                ? firstaddispressed
+                                    ? 171.w
+                                    : 300.w
+                                : 125.w,
+                        top: firstaddispressed ? 668.h : 398.h),
                     child: AnimatedContainer(
                       duration: const Duration(microseconds: 150000),
                       child: Icon(
                         Icons.add,
-                        color: ispressed
-                            ? addispressed
-                                ? Colors.white
-                                : Colors.black
-                            : Colors.white,
+                        color: secondpressed
+                            ? Colors.black
+                            : firstispressed
+                                ? firstaddispressed
+                                    ? Colors.white
+                                    : Colors.black
+                                : Colors.white,
                         size: 23.h,
                       ),
                     )),
