@@ -9,6 +9,8 @@ class Emphaisis extends ChangeNotifier {
   bool get ispressed => _ispressed;
   bool get bsmispressed => _bsmispressed;
   String get accessToken => _accessToken;
+  
+  
   void change() {
     _ispressed = !ispressed;
     notifyListeners();
