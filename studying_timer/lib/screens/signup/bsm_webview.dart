@@ -104,7 +104,7 @@ class _WebviewState extends State<Webview> {
           ? Center(child: SpinKitWave(color: CommonColor.orange))
           : WebView(
               initialUrl:
-                  'https://auth.bssm.kro.kr/oauth?clientId=5f034939&redirectURI=http://localhost:3000/oauth',
+                  'https://auth.bssm.kro.kr/oauthhttps://auth.bssm.kro.kr/oauth?clientId=5f034939&redirectURI=http://localhost:3000/oauth',
               javascriptMode: JavascriptMode.unrestricted,
               navigationDelegate: (NavigationRequest request) {
                 if (request.url.contains("?code=")) {
