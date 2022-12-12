@@ -7,8 +7,13 @@ class SubjectList extends ChangeNotifier {
 
   List<TimerModel> get timerList => _timerList;
 
-  void add(String subject) {
-    timerList.add(TimerModel(subject));
+  void add(String subject, int hour, int minute, int second) {
+    timerList.add(TimerModel(subject, hour, minute, second));
+    notifyListeners();
+  }
+
+  void clearly() {
+    timerList.clear();
     notifyListeners();
   }
 }
