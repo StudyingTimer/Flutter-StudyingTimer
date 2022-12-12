@@ -1,12 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/provider/signup.dart';
-import 'package:studying_timer/screens/bottombar/bottom.dart';
-import 'package:studying_timer/screens/bottombar/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:studying_timer/screens/loading.dart';
 
 class Make_Name extends StatefulWidget {
   const Make_Name({Key? key}) : super(key: key);
@@ -32,25 +34,41 @@ class _Make_NameState extends State<Make_Name> {
         fontSize: 16.sp);
   }
 
-  // void postequest(var signupData) async {
-  //   print("실행됨");
-  //   String url = 'http://localhost:8080/person/signUp';
-  //   http.Response response = await http.post(Uri.parse(url),
-  //       body: <String, String>{
-  //         "email": signupData.name,
-  //         "password": signupData.id,
-  //         "nickname": signupData.pw
-  //       });
-  //   print(response.body);
-  //   print('실행되었습ㄴ디ㅏ');
-  //   print(response.statusCode);
-  //   if (response.statusCode == 200) {
-  //   }
-  // }
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+  };
+
+  void postequest(var emphaisis) async {
+    print("실행됨");
+    String url =
+        'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/student/signUp';
+
+    print(emphaisis.accessToken.runtimeType);
+    print(myController.text.runtimeType);
+    http.Response response = await http.post(Uri.parse(url),
+        headers: headers,
+        body: jsonEncode(<String, String>{
+          "token": emphaisis.accessToken,
+          "nickname": myController.text,
+        }));
+    print(response.body);
+    print('실행되었습ㄴ디ㅏ');
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var parsingData = jsonDecode(utf8.decode(response.bodyBytes));
+      print(parsingData);
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Loading(accessToken: emphaisis.accessToken,)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    var emphaisis = Provider.of<Emphaisis>(context);
     var signupData = Provider.of<SignupData>(context);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -133,11 +151,7 @@ class _Make_NameState extends State<Make_Name> {
                             name = myController.text;
                             print(name);
                             signupData.inputName(name);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MyPage()));
-                            // postequest(signupData);
+                            postequest(emphaisis);
                           });
                         });
                       }
