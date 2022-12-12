@@ -1,13 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:studying_timer/screens/loading.dart';
 // import 'package:sqflite/sqflite.dart';
 // import 'package:path/path.dart';
 
 class Ing extends StatefulWidget {
   final int hour, minute, second, i;
+  final String token;
   final List<TimerModel> timerList;
 
   const Ing(
@@ -16,7 +22,8 @@ class Ing extends StatefulWidget {
       required this.minute,
       required this.second,
       required this.i,
-      required this.timerList})
+      required this.timerList,
+      required this.token})
       : super(key: key);
 
   @override
@@ -41,6 +48,63 @@ class _IngState extends State<Ing> {
     start();
     // ignore: avoid_print
     print('타이머가 실행되었습니다');
+  }
+
+  void toastmessage() {
+    Fluttertoast.showToast(
+        msg: "오류가 발생했습니다",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
+
+  void putrequest(String title, int hour, int minute, int second) async {
+    try {
+      print("put 실행됨");
+      String url =
+          'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/subject/time/update';
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+      };
+
+     
+     
+     
+     http.Response response = await http.put(Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(<String, dynamic>{
+            "token": widget.token,
+            "title": title,
+            "hour": hour,
+            "minute": minute,
+            "second": second
+          }));
+
+      // ignore: avoid_print
+      print(response.body);
+      // ignore: avoid_print
+      print('실행되었습ㄴ디ㅏ');
+      // ignore: avoid_print
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Loading(
+                      accessToken: widget.token,
+                    )));
+      } else {
+        toastmessage();
+      }
+    } catch (e) {
+      e.toString();
+    }
   }
 
   void start() {
@@ -76,8 +140,11 @@ class _IngState extends State<Ing> {
                     padding: EdgeInsets.only(right: 10.w),
                     child: IconButton(
                       onPressed: () {
-                        
-                        Navigator.pop(context);
+                        putrequest(
+                            widget.timerList[widget.i].subject,
+                            widget.timerList[widget.i].hour,
+                            widget.timerList[widget.i].minute,
+                            widget.timerList[widget.i].second);
                       },
                       icon: const Icon(
                         Icons.pause_circle,
