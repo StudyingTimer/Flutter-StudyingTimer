@@ -1,9 +1,9 @@
 class TimerModel {
   String subject;
-  int hour = 00;
-  int minute = 00;
-  int second = 00;
-  TimerModel(this.subject);
+  int hour;
+  int minute;
+  int second;
+  TimerModel(this.subject, this.hour, this.minute, this.second);
 }
 
 // timer 페이지 구현
