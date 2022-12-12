@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
+import 'package:studying_timer/model/todomodel.dart';
 import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/provider/subjectlist.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:studying_timer/provider/todolist.dart';
 import 'package:studying_timer/screens/signup/bsm_webview.dart';
+import 'package:studying_timer/widget/todolist.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<Emphaisis>(
@@ -24,6 +29,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<SignupData>(
             create: (_) => SignupData(),
+          ),
+          ChangeNotifierProvider<TodoLists>(
+            create: (_) => TodoLists(),
           ),
           ChangeNotifierProvider<SubjectList>(create: (_) => SubjectList()),
         ],
@@ -82,6 +90,9 @@ class Start extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: ElevatedButton(
                 onPressed: () {
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => const MyPage()));
+
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Webview()));
                 },
