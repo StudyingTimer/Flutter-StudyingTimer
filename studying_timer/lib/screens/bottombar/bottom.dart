@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
@@ -10,6 +12,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:studying_timer/screens/bottombar/todo.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
+import 'package:studying_timer/screens/loading.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -38,7 +42,45 @@ class _MyPageState extends State<MyPage> {
     int position5 = 350;
     final _subjectController = TextEditingController();
 
-    void FlutterDialog() {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+    };
+
+    void postequest(var emphaisis) async {
+      print("실행됨");
+      String url =
+          'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/subject/insert';
+
+      print(_subjectController.text);
+      print(emphaisis.accessToken);
+      print(_subjectController.text.runtimeType);
+      http.Response response = await http.post(Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(<String, String>{
+            "token": emphaisis.accessToken,
+            "title": _subjectController.text,
+          }));
+
+      // ignore: avoid_print
+      print(response.body);
+      // ignore: avoid_print
+      print('실행되었습ㄴ디ㅏ');
+      // ignore: avoid_print
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Loading(
+                      accessToken: emphaisis.accessToken,
+                    )));
+      }
+    }
+
+    void FlutterDialog(var emphaisis) {
       showDialog(
           context: context,
           //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
@@ -89,7 +131,7 @@ class _MyPageState extends State<MyPage> {
                   onPressed: () {
                     setState(() {
                       emphasis.change();
-                      subjectList.add(_subjectController.text);
+                      postequest(emphaisis);
                     });
                     Navigator.pop(context);
                   },
@@ -137,7 +179,7 @@ class _MyPageState extends State<MyPage> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        FlutterDialog();
+                        FlutterDialog(emphasis);
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: CommonColor.orange,
@@ -375,7 +417,6 @@ class _MyPageState extends State<MyPage> {
           //     ),
           //   ),
           // ),
-          
         ],
       ),
       Padding(
@@ -428,8 +469,7 @@ class _MyPageState extends State<MyPage> {
       ),
     ];
 
-    return Stack(
-      children: [
+    return Stack(children: [
       Scaffold(
         resizeToAvoidBottomInset: false,
         body: IndexedStack(
