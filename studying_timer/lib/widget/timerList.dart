@@ -1,13 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/model/timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/provider/subjectlist.dart';
+import 'package:studying_timer/screens/loading.dart';
 import 'package:studying_timer/screens/onpressbottom/ing.dart';
+import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TimerList extends StatefulWidget {
-  const TimerList({Key? key}) : super(key: key);
+  final String token;
+  const TimerList({Key? key, required this.token}) : super(key: key);
 
   @override
   State<TimerList> createState() => _RankState();
@@ -16,7 +23,19 @@ class TimerList extends StatefulWidget {
 class _RankState extends State<TimerList> {
   final _nameController = TextEditingController();
 
-  List<Widget> makeStudyPaper(BuildContext context, List<TimerModel> timers) {
+  void toastmessage() {
+    Fluttertoast.showToast(
+        msg: "오류가 발생했습니다",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
+
+  List<Widget> makeStudyPaper(
+      BuildContext context, List<TimerModel> timers, String access) {
     List<String> _valueList = ['이름 수정', '삭제'];
     late String _selectedValue = '';
     List<Widget> results = [];
@@ -35,6 +54,74 @@ class _RankState extends State<TimerList> {
           buttonColor = 0xFF00B07B;
         }
         return buttonColor;
+      }
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+      };
+
+      void deleterequest(String title) async {
+        print("delete실행됨");
+        String url =
+            'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/subject/delete';
+
+        http.Response response = await http.delete(Uri.parse(url),
+            headers: headers,
+            body: jsonEncode(<String, String>{
+              "token": access,
+              "title": title,
+            }));
+
+        // ignore: avoid_print
+        print(response.body);
+        // ignore: avoid_print
+        print('실행되었습ㄴ디ㅏ');
+        // ignore: avoid_print
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Loading(
+                        accessToken: access,
+                      )));
+        } else {
+          toastmessage();
+        }
+      }
+
+      void putrequest(String old) async {
+        print("put실행됨");
+        String url =
+            'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/subject/title/update';
+
+        http.Response response = await http.put(Uri.parse(url),
+            headers: headers,
+            body: jsonEncode(<String, String>{
+              "token": access,
+              "oldTitle": old,
+              "newTitle": _nameController.text,
+            }));
+
+        // ignore: avoid_print
+        print(response.body);
+        // ignore: avoid_print
+        print('실행되었습ㄴ디ㅏ');
+        // ignore: avoid_print
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Loading(
+                        accessToken: access,
+                      )));
+        } else {
+          toastmessage();
+        }
       }
 
       void nameDialog() {
@@ -88,7 +175,7 @@ class _RankState extends State<TimerList> {
                     ),
                     onPressed: () {
                       setState(() {
-                        timers[i].subject = _nameController.text;
+                        putrequest(timers[i].subject);
                       });
                       Navigator.pop(context);
                     },
@@ -128,7 +215,7 @@ class _RankState extends State<TimerList> {
                       child: ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              timers.removeAt(i);
+                              deleterequest(timers[i].subject);
                               Navigator.pop(context);
                             });
                           },
@@ -243,7 +330,9 @@ class _RankState extends State<TimerList> {
                                 minute: timers[i].minute,
                                 second: timers[i].second,
                                 i: i,
-                                timerList: timers))).then((value) {
+                                timerList: timers,
+                                token: access,
+                                ))).then((value) {
                       setState(() {});
                     });
 
@@ -330,12 +419,53 @@ class _RankState extends State<TimerList> {
     return results;
   }
 
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+  };
+
+  var subjectLists;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      subjectLists = Provider.of<SubjectList>(context, listen: false);
+    });
+    _postrequest();
+    super.initState();
+  }
+
+  void _postrequest() async {
+    print("code");
+    print("postrequest 실행");
+    String url =
+        'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/subjects/${widget.token}';
+    http.Response response = await http.get(Uri.parse(url), headers: headers);
+    int statuscode = response.statusCode;
+    subjectLists.clearly();
+
+    if (statuscode == 200) {
+      var parsingData = jsonDecode(utf8.decode(response.bodyBytes));
+      print("parsingData = $parsingData");
+      for (int i = 0; i < parsingData["length"]; i++) {
+        subjectLists.add(
+            "${parsingData["list"][i]["title"]}",
+            parsingData["list"][i]["studyHour"],
+            parsingData["list"][i]["studyMinute"],
+            parsingData["list"][i]["studySecond"]);
+      }
+    } else {}
+  }
+
   // 선택 창
   @override
   Widget build(BuildContext context) {
     var subjectList = Provider.of<SubjectList>(context);
+    var emphasis = Provider.of<Emphaisis>(context);
+
     return Column(
-      children: makeStudyPaper(context, subjectList.timerList),
+      children:
+          makeStudyPaper(context, subjectList.timerList, emphasis.accessToken),
     );
   }
 }
