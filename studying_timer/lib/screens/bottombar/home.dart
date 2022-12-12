@@ -21,9 +21,7 @@ class _HomeState extends State<Home> {
   final List<TimerModel> timerList = <TimerModel>[];
 
   NumberFormat formatter = NumberFormat("00");
-  int hour = 00;
-  int minutes = 00;
-  int second = 00;
+ 
   int position1 = 120;
   int position2 = 60;
   var now = DateTime.now();
@@ -41,9 +39,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    timerList.add(TimerModel("국어"));
-    timerList.add(TimerModel("수학"));
-    timerList.add(TimerModel("영어"));
     print('home.dart가 실행되었습니다');
   }
 
@@ -53,7 +48,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: CommonColor.orange,
+      
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
         shape: Border(
@@ -65,12 +62,6 @@ class _HomeState extends State<Home> {
           "${formatDate1}(${formatData2})",
           style: TextStyle(fontSize: 20.sp),
         ),
-        leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.white,
-            )),
         actions: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -99,7 +90,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      formatter.format(hour),
+                      formatter.format(emphasis.hour),
                       style: TextStyle(
                           fontSize: 45.sp,
                           color: Colors.white,
@@ -113,7 +104,7 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      formatter.format(minutes),
+                      formatter.format(emphasis.minute),
                       style: TextStyle(
                           fontSize: 45.sp,
                           color: Colors.white,
@@ -127,7 +118,7 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      formatter.format(second),
+                      formatter.format(emphasis.second),
                       style: TextStyle(
                           fontSize: 45.sp,
                           color: Colors.white,
@@ -146,8 +137,8 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.r),
                             topRight: Radius.circular(10.r))),
-                    child: Column(children: const[
-                      TimerList(),
+                    child: Column(children: [
+                      TimerList(token: emphasis.accessToken),
 
                       //휴식 알림 -> padding.top = 120
                       //타이머 추가 -> padding.top = 60
