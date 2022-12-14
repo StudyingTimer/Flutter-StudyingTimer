@@ -46,6 +46,7 @@ dependencies:
   flutter_web_auth: ^0.4.1
   webview_flutter: ^3.0.4
   flutter_swipe_action_cell: ^3.0.4
+  ranked_list: ^0.0.1
   flutter_localizations:
     sdk: flutter
 
