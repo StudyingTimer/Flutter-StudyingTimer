@@ -75,7 +75,7 @@ Flutter doctor에서 오류가 난다면 구글링 후 해결
 - 로그인  [bsmOauth(부산소프트웨어마이스터고 전용 로그인)](https://auth.bssm.kro.kr/oauth?clientId=5f034939&redirectURI=http://localhost:3000/oauth) 소셜로그인 (완료)
 - 회원가입 닉네임생성 (완료)
 - Timer (완료)
-- Todo List (미완)
+- Todo List (완료)
 - 랭킹 (미완)
 - 통계 (미완)
 		
