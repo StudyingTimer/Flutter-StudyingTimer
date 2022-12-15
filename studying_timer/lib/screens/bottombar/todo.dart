@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/provider/todolist.dart';
 import 'package:studying_timer/widget/todolist.dart';
+import 'package:http/http.dart' as http;
+import 'package:studying_timer/screens/loading.dart';
 
 class Todo extends StatefulWidget {
   const Todo({Key? key}) : super(key: key);
@@ -18,7 +23,48 @@ class _TodoState extends State<Todo> {
     var todoList = Provider.of<TodoLists>(context);
     final _todoController = TextEditingController();
 
-    void FlutterDialog() {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+    };
+
+    void postequest(var emphaisis) async {
+      print("실행됨");
+      String url =
+          'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/todo/insert';
+
+      print(_todoController.text);
+      print(_todoController.text);
+      print(_todoController.text);
+      print(_todoController.text);
+      print(_todoController.text);
+      
+
+      http.Response response = await http.post(Uri.parse(url),
+          headers: headers,
+          body: jsonEncode(<String, String>{
+            "token": emphaisis.accessToken,
+            "content": _todoController.text,
+          }));
+
+      // ignore: avoid_print
+      print(response.body);
+      // ignore: avoid_print
+      print('실행되었습ㄴ디ㅏ');
+      // ignore: avoid_print
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Loading(
+                      accessToken: emphaisis.accessToken,
+                    )));
+      }
+    }
+
+    void FlutterDialog(var emphaisis) {
       showDialog(
           context: context,
           //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
@@ -68,7 +114,7 @@ class _TodoState extends State<Todo> {
                   ),
                   onPressed: () {
                     setState(() {
-                      todoList.add(_todoController.text);
+                      postequest(emphaisis);
                     });
                     Navigator.pop(context);
                   },
@@ -88,6 +134,8 @@ class _TodoState extends State<Todo> {
             );
           });
     }
+
+    var emphasis = Provider.of<Emphaisis>(context);
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -110,7 +158,7 @@ class _TodoState extends State<Todo> {
                       ),
                       IconButton(
                           onPressed: () {
-                            FlutterDialog();
+                            FlutterDialog(emphasis);
                           },
                           icon: Icon(
                             Icons.add,
@@ -133,7 +181,9 @@ class _TodoState extends State<Todo> {
                     ],
                   ),
                 ),
-                const TodoList()
+                TodoList(
+                  access: emphasis.accessToken,
+                )
               ],
             ),
           ),
