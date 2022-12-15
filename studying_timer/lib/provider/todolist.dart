@@ -11,4 +11,9 @@ class TodoLists extends ChangeNotifier {
     todoList.add(TodoModel(content));
     notifyListeners();
   }
+
+  void clearly() {
+    todoList.clear();
+    notifyListeners();
+  }
 }
