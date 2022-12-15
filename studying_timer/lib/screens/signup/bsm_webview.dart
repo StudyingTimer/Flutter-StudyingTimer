@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
 import 'package:studying_timer/provider/emphasis.dart';
+import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/screens/bottombar/bottom.dart';
 import 'package:studying_timer/screens/loading.dart';
 import 'package:studying_timer/screens/signup/make_name.dart';
@@ -71,7 +72,7 @@ class _WebviewState extends State<Webview> {
         fontSize: 16.sp);
   }
 
-  _postRequest(var emphaisis) async {
+  _postRequest(var emphaisis, var signup) async {
     var parsingData;
 
     print("code");
@@ -88,6 +89,7 @@ class _WebviewState extends State<Webview> {
       var parsingData = jsonDecode(utf8.decode(response.bodyBytes));
       print("parsingData = $parsingData");
       accessToken = parsingData['token'];
+      signup.inputName(parsingData["name"]);
 
       // ignore: avoid_print
       print("22222222222222222221222222222222222222222222222222222222");
@@ -103,7 +105,7 @@ class _WebviewState extends State<Webview> {
             MaterialPageRoute(
                 builder: (_) => Loading(accessToken: accessToken)));
       } else {
-        toastmessage1();
+        toastmessage();
         // ignore: use_build_context_synchronously
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => const Make_Name()));
@@ -120,6 +122,7 @@ class _WebviewState extends State<Webview> {
   @override
   Widget build(BuildContext context) {
     var emphaisis = Provider.of<Emphaisis>(context);
+    var signup = Provider.of<SignupData>(context);
     return Scaffold(
       body: close
           ? Center(child: SpinKitWave(color: CommonColor.orange))
@@ -143,7 +146,7 @@ class _WebviewState extends State<Webview> {
                     print("code9 : $code");
                     print("code10 : $code");
                     print("code11 : $code");
-                    _postRequest(emphaisis);
+                    _postRequest(emphaisis, signup);
                     close = true;
                   });
                   // _postRequest(emphaisis);
