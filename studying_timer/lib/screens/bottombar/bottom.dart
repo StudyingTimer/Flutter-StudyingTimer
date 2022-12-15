@@ -69,7 +69,6 @@ class _MyPageState extends State<MyPage> {
       // ignore: avoid_print
       print(response.statusCode);
       if (response.statusCode == 200) {
-
         // ignore: use_build_context_synchronously
         Navigator.push(
             context,
@@ -423,48 +422,30 @@ class _MyPageState extends State<MyPage> {
         padding: EdgeInsets.only(left: 287.w, top: 660.h),
         child: Row(
           children: [
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    emphasis.change();
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  elevation: 6.0,
-                  minimumSize: Size(55.w, 55.h),
-                  backgroundColor: Colors.white,
-                ),
-                child: Icon(
-                  emphasis.ispressed ? Icons.close : Icons.add,
-                  color: CommonColor.orange,
-                  size: 25.h,
-                )),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       setState(() {
+            //         emphasis.change();
+            //       });
+            //     },
+            //     style: ElevatedButton.styleFrom(
+            //       shape: const CircleBorder(),
+            //       elevation: 6.0,
+            //       minimumSize: Size(55.w, 55.h),
+            //       backgroundColor: Colors.white,
+            //     ),
+            //     child: Icon(
+            //       emphasis.ispressed ? Icons.close : Icons.add,
+            //       color: CommonColor.orange,
+            //       size: 25.h,
+            //     )),
           ],
         ),
       ),
       Padding(
         padding: EdgeInsets.only(left: 287.w, top: 660.h),
         child: Row(
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    emphasis.change();
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  elevation: 6.0,
-                  minimumSize: Size(55.w, 55.h),
-                  backgroundColor: Colors.white,
-                ),
-                child: Icon(
-                  emphasis.ispressed ? Icons.close : Icons.add,
-                  color: CommonColor.orange,
-                  size: 25.h,
-                )),
-          ],
+          children: [],
         ),
       ),
     ];
@@ -509,8 +490,8 @@ class _MyPageState extends State<MyPage> {
 
               /// Profile
               SalomonBottomBarItem(
-                icon: const Icon(FontAwesomeIcons.chartBar),
-                title: const Text("Status"),
+                icon: const Icon(Icons.account_circle),
+                title: const Text("Profile"),
                 selectedColor: Colors.orange,
               ),
             ],
