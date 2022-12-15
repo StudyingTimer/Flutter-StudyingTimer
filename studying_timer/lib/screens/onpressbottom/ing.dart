@@ -72,17 +72,20 @@ class _IngState extends State<Ing> {
         'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
       };
 
-     
-     
-     
-     http.Response response = await http.put(Uri.parse(url),
+      print(widget.token);
+      print(title);
+      print(hour);
+      print(minute);
+      print(second);
+
+      http.Response response = await http.put(Uri.parse(url),
           headers: headers,
           body: jsonEncode(<String, dynamic>{
             "token": widget.token,
             "title": title,
-            "hour": hour,
-            "minute": minute,
-            "second": second
+            "studyHour": hour,
+            "studyMinute": minute,
+            "studySecond": second
           }));
 
       // ignore: avoid_print
@@ -92,6 +95,7 @@ class _IngState extends State<Ing> {
       // ignore: avoid_print
       print(response.statusCode);
       if (response.statusCode == 200) {
+    timer.cancel();
         // ignore: use_build_context_synchronously
         Navigator.push(
             context,
@@ -100,6 +104,7 @@ class _IngState extends State<Ing> {
                       accessToken: widget.token,
                     )));
       } else {
+    timer.cancel();
         toastmessage();
       }
     } catch (e) {
