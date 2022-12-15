@@ -9,7 +9,8 @@
       "client_info": {
         "mobilesdk_app_id": "1:1079356660880:android:3abdfbbe98656c0b1ecc15",
         "android_client_info": {
-          "package_name": "com.example.studying_timer"
+          
+        "package_name": "com.example.studying_timer"
         }
       },
       "oauth_client": [
