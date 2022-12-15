@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:studying_timer/screens/bottombar/bottom.dart';
 import 'dart:convert';
 
-
 class Loading extends StatefulWidget {
   final String accessToken;
   const Loading({super.key, required this.accessToken});
@@ -24,7 +23,9 @@ class _LoadingState extends State<Loading> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       emphasis = Provider.of<Emphaisis>(context, listen: false);
     });
+    getrequest();
     postrequest(emphasis);
+
     super.initState();
   }
 
@@ -48,6 +49,24 @@ class _LoadingState extends State<Loading> {
       // ignore: use_build_context_synchronously
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const MyPage()));
+    }
+  }
+
+  void getrequest() async {
+    print("모든과목조회");
+    
+    print("모든과목조회1");
+    print("모든과목조회2");
+    String url =
+        'http://java-project-studytimer.ap-northeast-2.elasticbeanstalk.com/allSubjects';
+
+    http.Response response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      var parsingData = jsonDecode(utf8.decode(response.bodyBytes));
+      print(parsingData);
     }
   }
 
