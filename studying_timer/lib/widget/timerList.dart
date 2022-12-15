@@ -326,12 +326,12 @@ class _RankState extends State<TimerList> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => Ing(
-                                hour: timers[i].hour,
-                                minute: timers[i].minute,
-                                second: timers[i].second,
-                                i: i,
-                                timerList: timers,
-                                token: access,
+                                  hour: timers[i].hour,
+                                  minute: timers[i].minute,
+                                  second: timers[i].second,
+                                  i: i,
+                                  timerList: timers,
+                                  token: access,
                                 ))).then((value) {
                       setState(() {});
                     });
