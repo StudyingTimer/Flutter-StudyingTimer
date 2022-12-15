@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:studying_timer/common/common.dart';
-import 'package:studying_timer/model/todomodel.dart';
 import 'package:studying_timer/provider/emphasis.dart';
 import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/provider/subjectlist.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:studying_timer/provider/todolist.dart';
 import 'package:studying_timer/screens/signup/bsm_webview.dart';
-import 'package:studying_timer/widget/todolist.dart';
 import 'package:flutter/services.dart';
 
 void main() {
