@@ -56,7 +56,7 @@
 
 ### Running from source
 
-터미널에 이 명령어들을 입력해 실행해보세요 :
+터미널에 이 명령어들을 입력해 실행해보세요 : 
 
 ```sh
 git clone https://github.com/StudyingTimer/Flutter-StudyingTimer.git
