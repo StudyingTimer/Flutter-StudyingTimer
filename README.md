@@ -17,7 +17,7 @@
 
 
 <p align="center">
-	<img src="https://user-images.githubusercontent.com/89582664/203536228-2e98beba-ad17-4b33-96d5-5a458be86b64.png" width="550">
+	<img src="https://user-images.githubusercontent.com/89582664/211317339-4e4e3681-3071-429e-8c91-bbb6c5b6ed11.png" width="550">
 </p>
 
 ## 팀원역할
