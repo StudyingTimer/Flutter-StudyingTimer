@@ -38,7 +38,6 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   intl: ^0.17.0
   font_awesome_flutter: ^10.2.1
-  sqflite: ^2.0.3
   provider: ^6.0.3
   flutter_slide_drawer: ^1.0.1
   http: ^0.13.5
@@ -47,6 +46,7 @@ dependencies:
   webview_flutter: ^3.0.4
   flutter_swipe_action_cell: ^3.0.4
   ranked_list: ^0.0.1
+  sqflite: ^2.2.8+4Í
   flutter_localizations:
     sdk: flutter
 
