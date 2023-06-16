@@ -7,6 +7,7 @@ import 'package:studying_timer/provider/signup.dart';
 import 'package:studying_timer/provider/subjectlist.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:studying_timer/provider/todolist.dart';
+import 'package:studying_timer/provider/token.dart';
 import 'package:studying_timer/screens/signup/bsm_webview.dart';
 import 'package:flutter/services.dart';
 
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider<Token>(
+            create: (_) => Token()
+          ),
           ChangeNotifierProvider<Emphaisis>(
             create: (_) => Emphaisis(),
           ),
@@ -31,7 +35,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<TodoLists>(
             create: (_) => TodoLists(),
           ),
-          ChangeNotifierProvider<SubjectList>(create: (_) => SubjectList()),
+          ChangeNotifierProvider<SubjectList>(
+            create: (_) => SubjectList()
+          ),
         ],
         child: ScreenUtilInit(
             designSize: const Size(360, 800),
