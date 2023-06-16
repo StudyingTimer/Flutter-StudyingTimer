@@ -134,18 +134,6 @@ class _WebviewState extends State<Webview> {
                 if (request.url.contains("?code=")) {
                   setState(() {
                     code = request.url.split("?code=")[1];
-                    print("code : $code");
-                    print("code1 : $code");
-                    print("code2 : $code");
-                    print("code3 : $code");
-                    print("code4 : $code");
-                    print("code5 : $code");
-                    print("code6 : $code");
-                    print("code7 : $code");
-                    print("code8 : $code");
-                    print("code9 : $code");
-                    print("code10 : $code");
-                    print("code11 : $code");
                     _postRequest(emphaisis, signup);
                     close = true;
                   });
