@@ -33,7 +33,6 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     var emphasis = Provider.of<Emphaisis>(context);
-    var subjectList = Provider.of<SubjectList>(context);
 
     int position1 = 590;
     int position2 = 530;
@@ -48,13 +47,9 @@ class _MyPageState extends State<MyPage> {
     };
 
     void postequest(var emphaisis) async {
-      print("실행됨");
       String url =
           'http://Java-Project-StudyTimer.ap-northeast-2.elasticbeanstalk.com/subject/insert';
 
-      print(_subjectController.text);
-      print(emphaisis.accessToken);
-      print(_subjectController.text.runtimeType);
       http.Response response = await http.post(Uri.parse(url),
           headers: headers,
           body: jsonEncode(<String, String>{
@@ -62,12 +57,6 @@ class _MyPageState extends State<MyPage> {
             "title": _subjectController.text,
           }));
 
-      // ignore: avoid_print
-      print(response.body);
-      // ignore: avoid_print
-      print('실행되었습ㄴ디ㅏ');
-      // ignore: avoid_print
-      print(response.statusCode);
       if (response.statusCode == 200) {
         // ignore: use_build_context_synchronously
         Navigator.push(
